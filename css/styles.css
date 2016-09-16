@@ -1,0 +1,110 @@
+@font-face {
+    font-family: Bellerose;
+    src: url("../fonts/Bellerose.ttf");
+}
+
+@font-face {
+    font-family: Minimal;
+    src: url("../fonts/minimal.otf");
+}
+
+#body
+{
+  background-image: url("../images/background.jpg");
+}
+
+#title
+{
+  color: white;
+  font-size: 60px;
+  font-family: Bellerose, Arial;
+  margin-bottom: 50px;
+  margin-top: 40px;
+}
+
+#user_section
+{
+  width: 70%;
+  margin: 50px;
+  padding-bottom: 10px;
+  background-color: #bfbfbf;
+  opacity: 1;
+  border-radius: 5px;
+}
+
+#name_input
+{
+ width: 50%;
+ margin: 10px;
+ margin-right: 0px;
+ padding: 5px;
+}
+
+.button
+{
+  padding: 5px;
+}
+
+.card
+{
+  display: inline-block;
+  height: 45%;
+  width: 5%;
+  background-color: #262626;
+  margin: 3px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+}
+
+#result_section
+{
+  height: 300px;
+  width: 70%;
+  margin: 50px;
+  padding-bottom: 10px;
+  background-color: #bfbfbf;
+  opacity: 1;
+  border-radius: 5px;
+}
+
+#statistics_section
+{
+  width: 70%;
+  margin: 50px;
+  padding-bottom: 10px;
+  background-color: #bfbfbf;
+  opacity: 1;
+  border-radius: 5px;
+}
+
+#box_plot
+{
+  height: 300px;
+  width: 70%;
+  margin: 50px;
+  background-color: #bfbfbf;
+  opacity: 1;
+  border-radius: 5px;
+}
+
+.input_text
+{
+  color: black;
+  font-size: 25px;
+  font-family: Minimal, Arial;
+}
+
+.header_text
+{
+  font-family: Minimal, Arial;
+  font-weight: bold;
+  font-size: 50px;
+  margin: 9px;
+}
+.text
+{
+  color: white;
+  font-size: 25px;
+  font-family: Minimal, Arial;
+}
