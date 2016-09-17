@@ -1,9 +1,10 @@
 selected_card = "";
+estimates = [];
 
 function createVisualizations()
 {
   var trace1 = {
-    x: [1, 3, 3, 5, 5, 8, 21],
+    x: estimates,
     type: 'box',
     name: '',
     fillcolor: 'rgb(34, 34, 34)',
@@ -91,20 +92,66 @@ function submit()
 {
   name_input = document.getElementById("name_input");
   given_name = name_input.value;
-  submit_button = document.getElementById("submit");
-  parent = document.getElementById("submit_section");
+  parent = document.getElementById("user_section");
+
+  // TODO: change alert to a nicer looking message
+  // check for a name
+  if(given_name == '')
+  {
+    alert("Please enter a name");
+    return;
+  }
+  // check for a card
+  if(selected_card == '')
+  {
+    alert("Please pick a card");
+    return;
+  }
 
   // remove name and submit button
   parent.removeChild(name_input);
-  parent.removeChild(submit_button);
 
   // display the user's name
   paragraph = document.createElement("P");
   name_input = document.createTextNode(given_name);
   paragraph.className = "header_text";
+  paragraph.style.marginBottom = "-22px";
+  paragraph.appendChild(name_input);
+  parent.insertBefore(paragraph, parent.firstChild);
+
+  showUser(given_name);
+};
+
+function showUser(given_name)
+{
+  parent = document.getElementById("result_section");
+
+  // display the user's name
+  paragraph = document.createElement("P");
+  name_input = document.createTextNode(given_name);
+  paragraph.className = "text";
+  paragraph.style.color = "#000000";
   paragraph.appendChild(name_input);
   parent.appendChild(paragraph);
-};
+
+  // display the user's card
+  div = document.createElement("div");
+  div.className = "card";
+  div.id = "new_user_div";
+  parent.appendChild(div);
+
+  parent = document.getElementById("new_user_div");
+  paragraph = document.createElement("P");
+  card_text = document.createTextNode(selected_card);
+  paragraph.className = "text";
+  paragraph.style.color = "#ffffff";
+  paragraph.appendChild(card_text);
+  parent.appendChild(paragraph);
+
+  estimates.push(Number(selected_card));
+  createVisualizations();
+
+}
 
 function selectCard(card)
 {

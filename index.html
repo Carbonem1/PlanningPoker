@@ -20,7 +20,7 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   </head>
 
-  <body id = "body" onload = "createVisualizations()">
+  <body id = "body">
     <!-- Bootstrap Header -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
@@ -52,11 +52,9 @@
       <div id = "user_section">
         <!-- Need to use AJAX to submit the form-->
         <!-- <form> -->
-        <div id = "submit_section">
-          <input id = "name_input" class = "input_text" type="text" name = "name" placeholder = "Name">
-          <button id = "submit" class = "button input_text" onclick = "submit()"> go </button>
-        </div>
+        <input id = "name_input" class = "input_text" type="text" name = "name" placeholder = "Name">
         <!-- </form> -->
+        <br>
 
         <span id = "card0" name = "?" tabindex="1" class = "card" onclick= "selectCard(this.id)">
           <p class = "text"> ? </p>
@@ -94,6 +92,8 @@
         <span id = "card11" name = "89"  tabindex="1" class = "card" onclick= "selectCard(this.id)">
           <p class = "text"> 89 </p>
         </span>
+        <br>
+        <button id = "submit" class = "button input_text" onclick = "submit()"> Submit </button>
       </div>
 
       <div id = "result_section">
