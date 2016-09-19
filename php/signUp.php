@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$db_username = "username";
-$db_password = "password";
-$database = "db";
+$db_username = "root";
+$db_password = "PlanningPoker2016!";
+$database = "PlanningPokerDB";
 
 try
 {
@@ -33,7 +33,7 @@ try
   // sql to create the user table
   // TODO: add user preferences and info
   $sql = "CREATE TABLE $username (
-  id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  userID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(20) NOT NULL,
   password VARCHAR(20) NOT NULL,
   firstname VARCHAR(30),

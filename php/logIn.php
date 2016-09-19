@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$db_username = "username";
-$db_password = "password";
-$database = "db";
+$db_username = "root";
+$db_password = "PlanningPoker2016!";
+$database = "PlanningPokerDB";
 
 try
 {
