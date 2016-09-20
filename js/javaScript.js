@@ -60,11 +60,11 @@ function createVisualizations()
   Plotly.newPlot('box_plot', data, layout);
 };
 
-function signUp(username, password, email)
+function signUp(username, password, confirm_password, email)
 {
   $.ajax
   ({
-    data: 'username=' + username + ", password=" + password + ", email=" + email,
+    data: 'username=' + username + ", password=" + password + ", confirm_password=" + confirm_password + ", email=" + email,
     url: '/php/signUp.php',
     method: 'POST', // or GET
     success: function(msg)
