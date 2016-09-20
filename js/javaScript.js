@@ -60,11 +60,11 @@ function createVisualizations()
   Plotly.newPlot('box_plot', data, layout);
 };
 
-function signUp(username, password, email)
+function signUp(username, password, confirm_password, email)
 {
   $.ajax
   ({
-    data: 'username=' + username + ", password=" + password + ", email=" + email,
+    data: 'username=' + username + ", password=" + password + ", confirm_password=" + confirm_password + ", email=" + email,
     url: '/php/signUp.php',
     method: 'POST', // or GET
     success: function(msg)
@@ -88,7 +88,21 @@ function logIn(username, password)
   });
 };
 
-function submit()
+function createRoom()
+{
+  $.ajax
+  ({
+    data: '',
+    url: '/php/index.php',
+    method: 'POST', // or GET
+    success: function(msg)
+    {
+      alert(msg);
+    }
+  });
+};
+
+function submit(last_id)
 {
   name_input = document.getElementById("name_input");
   given_name = name_input.value;
@@ -119,37 +133,30 @@ function submit()
   paragraph.appendChild(name_input);
   parent.insertBefore(paragraph, parent.firstChild);
 
-  showUser(given_name);
+  $.ajax
+  ({
+    data: {'last_id': last_id, 'username': given_name, 'card': selected_card},
+    url: '/php/submit.php',
+    method: 'POST', // or GET
+    success: function(msg)
+    {
+      alert(msg);
+    }
+  });
 };
 
-function showUser(given_name)
+function showResults(last_id)
 {
-  parent = document.getElementById("result_section");
-
-  // display the user's name
-  paragraph = document.createElement("P");
-  name_input = document.createTextNode(given_name);
-  paragraph.className = "text";
-  paragraph.style.color = "#000000";
-  paragraph.appendChild(name_input);
-  parent.appendChild(paragraph);
-
-  // display the user's card
-  div = document.createElement("div");
-  div.className = "card";
-  div.id = "new_user_div";
-  parent.appendChild(div);
-
-  parent = document.getElementById("new_user_div");
-  paragraph = document.createElement("P");
-  card_text = document.createTextNode(selected_card);
-  paragraph.className = "text";
-  paragraph.style.color = "#ffffff";
-  paragraph.appendChild(card_text);
-  parent.appendChild(paragraph);
-
-  estimates.push(Number(selected_card));
-  createVisualizations();
+  $.ajax
+  ({
+    data: {'last_id': last_id},
+    url: '/php/showResults.php',
+    method: 'POST', // or GET
+    success: function(msg)
+    {
+      alert(msg);
+    }
+  });
 
 }
 

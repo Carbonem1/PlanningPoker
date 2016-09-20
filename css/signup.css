@@ -48,6 +48,14 @@
  padding: 5px;
 }
 
+#confirm_password_input
+{
+ width: 50%;
+ margin: 10px;
+ margin-right: 0px;
+ padding: 5px;
+}
+
 #email_input
 {
  width: 50%;

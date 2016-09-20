@@ -1,28 +1,71 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <title> Planning Poker </title>
-    <link rel="icon" href="images/icon.png">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSS -->
-    <link rel = "stylesheet" href = "css/styles.css">
-    <!-- JavaScript -->
-    <script src="js/javaScript.js"></script>
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-  	<link rel="stylesheet" href="css/footer-distributed-with-contact-form.css">
-    <!-- jQuery library -->
-    <script src="js/ajaxjquery.min.js"></script>
-    <!-- Plotly.js -->
-    <script src="js/plotly-latest.min.js"></script>
-  </head>
+<head>
+  <title> Planning Poker </title>
+  <link rel="icon" href="../images/icon.png">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- CSS -->
+  <link rel = "stylesheet" href = "../css/styles.css">
+  <!-- JavaScript -->
+  <script src="../js/javaScript.js"></script>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../css/font-awesome.min.css">
+  <link rel="stylesheet" href="../css/footer-distributed-with-contact-form.css">
+  <!-- jQuery library -->
+  <script src="../js/ajaxjquery.min.js"></script>
+  <!-- Plotly.js -->
+  <script src="../js/plotly-latest.min.js"></script>
+</head>
 
   <body id = "body">
-    <!-- Bootstrap Header -->
+    <?php
+
+    // insert new Room record
+    $servername = "localhost";
+    $db_username = "root";
+    $db_password = "PlanningPoker2016!";
+    $database = "PlanningPokerDB";
+
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$database", $db_username, $db_password);
+        // set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "INSERT INTO Rooms (roomID)
+        VALUES ('')";
+        // use exec() because no results are returned
+        $conn->exec($sql);
+        echo "New record created successfully";
+        }
+    catch(PDOException $e)
+        {
+        echo $sql . "<br>" . $e->getMessage();
+        }
+
+    // get the roomID we just inserted
+    $last_id = $conn->lastInsertId();
+
+    // create new RoomInstance tabel with roomID
+    // sql to create table
+    $sql = "CREATE TABLE RoomInstance$last_id (
+    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    roomID VARCHAR(30) NOT NULL,
+    username VARCHAR(20) NOT NULL,
+    card VARCHAR(5) NOT NULL
+    )";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Table RoomInstance$last_id created successfully";
+    } else {
+        echo "Error creating table: " . $conn->error;
+    }
+
+    $conn->close();
+    $conn = null;
+
+    <!-- Bootstrap Header
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -45,7 +88,7 @@
           </ul>
         </div>
       </div>
-    </nav>
+    </nav> -->
 
     <center>
       <p id = "title"> Planning Poker </p>
@@ -94,7 +137,7 @@
           <p class = "text"> 89 </p>
         </span>
         <br>
-        <button id = "submit" class = "button input_text" onclick = "submit()"> Submit </button>
+        <button id = "submit" class = "button input_text" onclick = "submit($last_id)"> Submit </button>
       </div>
 
       <div id = "result_section">
@@ -134,6 +177,8 @@
         </div>
       </div>
     </footer>
+
+    ?>
 
   </body>
 </html>
