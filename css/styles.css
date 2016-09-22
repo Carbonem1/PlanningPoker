@@ -72,7 +72,7 @@
 
 #result_section
 {
-  height: 300px;
+  min-height: 300px;
   width: 70%;
   margin: 50px;
   padding-bottom: 10px;
@@ -88,6 +88,12 @@
   padding-bottom: 10px;
   opacity: 1;
   border-radius: 5px;
+}
+
+#eye_icon
+{
+  float: right;
+  margin: 10px;
 }
 
 #statistics_section

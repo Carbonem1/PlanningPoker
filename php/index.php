@@ -20,7 +20,7 @@
   <script src="../js/plotly-latest.min.js"></script>
 </head>
 
-  <body id = "body">
+  <body id = "body" onload = "showPlayers()">
     <?php
 
     echo '
@@ -96,9 +96,10 @@
       </div>
 
       <div id = "result_section">
+	<img id = "eye_icon" onlick ="showResults()" src = "../images/showResults.jpg">
         <p class = "header_text"> Results </p>
 	<div id = "card_section"> </div>
-      </div>
+            </div>
 
     <div id="statistics_section">
       <p class = "header_text"> Statistics </p>
