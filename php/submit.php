@@ -5,7 +5,7 @@ $db_password = "PlanningPoker2016!";
 $database = "PlanningPokerDB";
 
 try {
-    $room_id = $_POST['last_id'];
+    $roomID = $_POST['last_id'];
     $username = $_POST['username'];
     $card = $_POST['card'];
 
@@ -13,8 +13,8 @@ try {
 
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "INSERT INTO RoomInstance$room_id (id, roomID, username, card)
-    VALUES (''', $roomID, $userID, $username, $card')";
+    $sql = "INSERT INTO RoomInstance$roomID (id, roomID, username, card)
+    VALUES (default, $roomID, '$username', $card)";
     // use exec() because no results are returned
     $conn->exec($sql);
     echo "New record created successfully";

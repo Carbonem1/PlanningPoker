@@ -7,6 +7,9 @@ $db_username = "root";
 $db_password = "PlanningPoker2016!";
 $database = "PlanningPokerDB";
 
+echo "<table style='border: solid 1px black;'>";
+echo "<tr><th>Username</th><th>Card</th></tr>";
+
 class TableRows extends RecursiveIteratorIterator { 
 function __construct($it) { 
 	parent::__construct($it, self::LEAVES_ONLY); 
@@ -28,19 +31,18 @@ function endChildren() {
 try {
     	$conn = new PDO("mysql:host=$servername;dbname=$database", $db_username, $db_password);
     	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    	$sql = ("SELECT username, card FROM RoomInstance142"); 
-	foreach ($conn->query($sql) as $row) {
-        	$username = $row['username'];
-        	$card = $row['card'];
+    	$stmt = $conn->prepare("SELECT username, card FROM RoomInstance$last_id"); 
+    	$stmt->execute();
 
-		echo '<p class = "text"> '.$username.' </p>';
-		echo '<span class = "card" name = "'.$card.'"  tabindex="1">
-          <p class = "text"> '.$card.' </p>
-        </span>';
+    	// set the resulting array to associative
+    	$result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
+    	foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) { 
+        	echo $v;
     	}
 }
 catch(PDOException $e) {
     	echo "Error: " . $e->getMessage();
 }
 	$conn = null;
+	echo "</table>";
 ?>

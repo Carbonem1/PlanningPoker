@@ -145,7 +145,7 @@ function submit(last_id)
   });
 };
 
-function showResults(last_id)
+window.setInterval(function showResults(last_id)
 {
   $.ajax
   ({
@@ -155,10 +155,12 @@ function showResults(last_id)
     success: function(msg)
     {
       alert(msg);
+
+      $('#result_section').append(msg);
     }
   });
+}, 2000);
 
-}
 
 function selectCard(card)
 {

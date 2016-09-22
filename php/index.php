@@ -34,7 +34,7 @@
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "INSERT INTO Rooms (roomID)
-        VALUES ('')";
+        VALUES (default)";
         // use exec() because no results are returned
         $conn->exec($sql);
         echo "New record created successfully";
@@ -47,6 +47,8 @@
     // get the roomID we just inserted
     $last_id = $conn->lastInsertId();
 
+    try
+    {
     // create new RoomInstance tabel with roomID
     // sql to create table
     $sql = "CREATE TABLE RoomInstance$last_id (
@@ -55,17 +57,15 @@
     username VARCHAR(20) NOT NULL,
     card VARCHAR(5) NOT NULL
     )";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Table RoomInstance$last_id created successfully";
-    } else {
-        echo "Error creating table: " . $conn->error;
+    $conn->exec($sql);
+    echo "Table RoomInstance$last_id created successfully";
     }
 
-    $conn->close();
-    $conn = null;
-
-    <!-- Bootstrap Header
+    catch(PDOException $e)
+    {
+    echo $sql . "<br>" . $e->getMessage();
+    }
+    echo '
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -88,16 +88,13 @@
           </ul>
         </div>
       </div>
-    </nav> -->
+    </nav>
 
     <center>
       <p id = "title"> Planning Poker </p>
 
       <div id = "user_section">
-        <!-- Need to use AJAX to submit the form-->
-        <!-- <form> -->
         <input id = "name_input" class = "input_text" type="text" name = "name" placeholder = "Name">
-        <!-- </form> -->
         <br>
 
         <span id = "card0" name = "?" tabindex="1" class = "card" onclick= "selectCard(this.id)">
@@ -137,11 +134,14 @@
           <p class = "text"> 89 </p>
         </span>
         <br>
-        <button id = "submit" class = "button input_text" onclick = "submit($last_id)"> Submit </button>
+        <button id = "submit" class = "button input_text" onclick = "submit('.$last_id.')"> Submit </button>
       </div>
 
       <div id = "result_section">
         <p class = "header_text"> Results </p>
+	<span>
+	<script> showResults('.$last_id.') </script>
+	</span>
       </div>
 
     <div id="statistics_section">
@@ -150,7 +150,6 @@
     </div>
     </center>
 
-    <!-- Bootstrap footer -->
     <footer class="footer-distributed">
       <div class="footer-left">
         <span class = "title_text">Planning Poker</span>
@@ -171,13 +170,14 @@
         <p class = "text footer_name"> Michael Carbone </p> <br>
         <p class="footer-company-name"> Michael.Carbone@emc.com </p>
         <div class="footer-icons">
-          <a href="https://www.facebook.com/michael.carbone.18"><i class="fa fa-facebook"></i></a>
-          <a href="https://www.linkedin.com/in/michael-carbone-14b13b8b?trk=nav_responsive_tab_profile_pic"><i class="fa fa-linkedin"></i></a>
-          <a href="https://github.com/Carbonem1?tab=repositories"><i class="fa fa-github"></i></a>
+          <a href="" class="fa fa-facebook"></i></a>
+          <a href="" class="fa fa-linkedin"></i></a>
+          <a href="" class="fa fa-github"></i></a>
         </div>
       </div>
-    </footer>
-
+    </footer>';
+    $conn->close();
+    $conn = null;
     ?>
 
   </body>
