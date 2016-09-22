@@ -1,10 +1,26 @@
 selected_card = "";
-estimates = [];
+estimates = new Array();
 
-function createVisualizations()
+function showVisualizations()
 {
+  url = window.location.href;
+  params = url.split('?');
+  params = url.split('=');
+ 
+  last_id = params[1];
+  $.ajax
+  ({
+    data: {'last_id': last_id},
+    url: '/php/showVisualizations.php',
+    method: 'POST', // or GET
+    success: function(msg)
+    {
+	estimates = msg;
+	estimates = estimates.replace(/,\s*$/, "");
+	data = estimates.split(',');
+
   var trace1 = {
-    x: estimates,
+    x: data,
     type: 'box',
     name: '',
     fillcolor: 'rgb(34, 34, 34)',
@@ -18,8 +34,6 @@ function createVisualizations()
     },
     boxpoints: 'suspectedoutliers'
   };
-
-  var data = [trace1];
 
   var layout = {
     title: 'Story Estimate Box Plot',
@@ -57,7 +71,12 @@ function createVisualizations()
     plot_bgcolor: 'rgb(34, 34, 34)'
   };
 
+  data = [trace1];
   Plotly.newPlot('box_plot', data, layout);
+
+    }
+  }); 
+
 };
 
 function signUp(username, password, confirm_password, email)
@@ -69,7 +88,6 @@ function signUp(username, password, confirm_password, email)
     method: 'POST', // or GET
     success: function(msg)
     {
-      alert(msg);
     }
   });
 };
@@ -83,7 +101,6 @@ function logIn(username, password)
     method: 'POST', // or GET
     success: function(msg)
     {
-      alert(msg);
     }
   });
 };
@@ -93,16 +110,16 @@ function createRoom()
   $.ajax
   ({
     data: '',
-    url: '/php/index.php',
+    url: '/php/createRoom.php',
     method: 'POST', // or GET
     success: function(msg)
     {
-      alert(msg);
+	window.location.replace("/php/index.php?roomID=" + msg);
     }
   });
 };
 
-function submit(last_id)
+function submit()
 {
   name_input = document.getElementById("name_input");
   given_name = name_input.value;
@@ -112,13 +129,11 @@ function submit(last_id)
   // check for a name
   if(given_name == '')
   {
-    alert("Please enter a name");
     return;
   }
   // check for a card
   if(selected_card == '')
   {
-    alert("Please pick a card");
     return;
   }
 
@@ -132,7 +147,12 @@ function submit(last_id)
   paragraph.style.marginBottom = "-22px";
   paragraph.appendChild(name_input);
   parent.insertBefore(paragraph, parent.firstChild);
-
+  
+  url = window.location.href;
+  params = url.split('?');
+  params = url.split('=');
+ 
+  last_id = params[1];
   $.ajax
   ({
     data: {'last_id': last_id, 'username': given_name, 'card': selected_card},
@@ -140,23 +160,28 @@ function submit(last_id)
     method: 'POST', // or GET
     success: function(msg)
     {
-      alert(msg);
+	estimates = msg;
     }
   });
 };
 
-window.setInterval(function showResults(last_id)
+window.setInterval(function showResults()
 {
+  url = window.location.href;
+  params = url.split('?');
+  params = url.split('=');
+
+  last_id = params[1];
   $.ajax
   ({
     data: {'last_id': last_id},
     url: '/php/showResults.php',
     method: 'POST', // or GET
     success: function(msg)
-    {
-      alert(msg);
-
-      $('#result_section').append(msg);
+    { 
+      $('#card_section').empty();
+      $('#card_section').append(msg);
+      showVisualizations();
     }
   });
 }, 2000);

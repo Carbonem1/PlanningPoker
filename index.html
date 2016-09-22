@@ -8,13 +8,13 @@
     <!-- CSS -->
     <link rel = "stylesheet" href = "css/styles.css">
     <!-- JavaScript -->
-    <script src="js/javaScript.js"></script>
+    <script type ="text/javascript" src = "js/javaScript.js"> </script>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/font-awesome.min.css">
-  	<link rel="stylesheet" href="css/footer-distributed-with-contact-form.css">
+    <link rel="stylesheet" href="css/footer-distributed-with-contact-form.css">
     <!-- jQuery library -->
     <script src="js/ajaxjquery.min.js"></script>
     <!-- Plotly.js -->
@@ -51,64 +51,11 @@
       <p id = "title"> Planning Poker </p>
 
       <div id = "user_section">
-        <!-- Need to use AJAX to submit the form-->
-        <!-- <form> -->
-        <input id = "name_input" class = "input_text" type="text" name = "name" placeholder = "Name">
-        <!-- </form> -->
-        <br>
-
-        <span id = "card0" name = "?" tabindex="1" class = "card" onclick= "selectCard(this.id)">
-          <p class = "text"> ? </p>
-        </span>
-        <span id = "card1" name = "0"  tabindex="1" class = "card" onclick= "selectCard(this.id)">
-          <p class = "text"> 0 </p>
-        </span>
-        <span id = "card2" name = "1"  tabindex="1" class = "card" onclick= "selectCard(this.id)">
-          <p class = "text"> 1 </p>
-        </span>
-        <span id = "card3" name = "2"  tabindex="1" class = "card" onclick= "selectCard(this.id)">
-          <p class = "text"> 2 </p>
-        </span>
-        <span id = "card4" name = "3"  tabindex="1" class = "card" onclick= "selectCard(this.id)">
-          <p class = "text"> 3 </p>
-        </span>
-        <span id = "card5" name = "5"  tabindex="1" class = "card" onclick= "selectCard(this.id)">
-          <p class = "text"> 5 </p>
-        </span>
-        <span id = "card6" name = "8"  tabindex="1" class = "card" onclick= "selectCard(this.id)">
-          <p class = "text"> 8 </p>
-        </span>
-        <span id = "card7" name = "13"  tabindex="1" class = "card" onclick= "selectCard(this.id)">
-          <p class = "text"> 13 </p>
-        </span>
-        <span id = "card8" name = "21"  tabindex="1" class = "card" onclick= "selectCard(this.id)">
-          <p class = "text"> 21 </p>
-        </span>
-        <span id = "card9" name = "34"  tabindex="1" class = "card" onclick= "selectCard(this.id)">
-          <p class = "text"> 34 </p>
-        </span>
-        <span id = "card10" name = "55"  tabindex="1" class = "card" onclick= "selectCard(this.id)">
-          <p class = "text"> 55 </p>
-        </span>
-        <span id = "card11" name = "89"  tabindex="1" class = "card" onclick= "selectCard(this.id)">
-          <p class = "text"> 89 </p>
-        </span>
-        <br>
-        <button id = "submit" class = "button input_text" onclick = "submit()"> Submit </button>
+      	<button onclick = "createRoom()" id = "submit" class = "button input_text"> Create Room </button>
       </div>
-
-      <div id = "result_section">
-        <p class = "header_text"> Results </p>
-      </div>
-
-    <div id="statistics_section">
-      <p class = "header_text"> Statistics </p>
-      <div id = "box_plot"> </div>
-    </div>
-    </center>
 
     <!-- Bootstrap footer -->
-    <footer class="footer-distributed">
+    <footer class="footer-distributed bottom">
       <div class="footer-left">
         <span class = "title_text">Planning Poker</span>
 

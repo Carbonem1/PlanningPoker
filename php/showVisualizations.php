@@ -1,6 +1,8 @@
 <?php
 
 $roomID = $_POST['last_id'];
+$estimates = array();
+
 $servername = "localhost";
 $db_username = "root";
 $db_password = "PlanningPoker2016!";
@@ -32,13 +34,12 @@ try {
 	foreach ($conn->query($sql) as $row) {
         	$username = $row['username'];
         	$card = $row['card'];
-		echo '<span class = result_entry>';
-		echo 	'<p class = "username_text"> '.$username.' </p>';
-		echo 	'<span class = "result_card" name = "'.$card.'"  tabindex="1">';
-          	echo 		'<p class = "text"> '.$card.' </p>';
-        	echo 	'</span>';
-		echo '</span>';
+		$estimates[] = $card;
     	}
+	foreach($estimates as $value)
+	{
+		echo $value.", ";
+	}
 }
 catch(PDOException $e) {
     	echo "Error: " . $e->getMessage();

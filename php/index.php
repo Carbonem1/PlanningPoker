@@ -23,48 +23,6 @@
   <body id = "body">
     <?php
 
-    // insert new Room record
-    $servername = "localhost";
-    $db_username = "root";
-    $db_password = "PlanningPoker2016!";
-    $database = "PlanningPokerDB";
-
-    try {
-        $conn = new PDO("mysql:host=$servername;dbname=$database", $db_username, $db_password);
-        // set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "INSERT INTO Rooms (roomID)
-        VALUES (default)";
-        // use exec() because no results are returned
-        $conn->exec($sql);
-        echo "New record created successfully";
-        }
-    catch(PDOException $e)
-        {
-        echo $sql . "<br>" . $e->getMessage();
-        }
-
-    // get the roomID we just inserted
-    $last_id = $conn->lastInsertId();
-
-    try
-    {
-    // create new RoomInstance tabel with roomID
-    // sql to create table
-    $sql = "CREATE TABLE RoomInstance$last_id (
-    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    roomID VARCHAR(30) NOT NULL,
-    username VARCHAR(20) NOT NULL,
-    card VARCHAR(5) NOT NULL
-    )";
-    $conn->exec($sql);
-    echo "Table RoomInstance$last_id created successfully";
-    }
-
-    catch(PDOException $e)
-    {
-    echo $sql . "<br>" . $e->getMessage();
-    }
     echo '
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
@@ -75,16 +33,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Planning Poker</a>
+          <a class="navbar-brand" href="../index.html">Planning Poker</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <li class="active"><a href="../index.html">Home</a></li>
             <li><a href="#">Options</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="signup.html"><span class="glyphicon glyphicon-user"></span> Sign Up </a></li>
-            <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
+            <li><a href="../signup.html"><span class="glyphicon glyphicon-user"></span> Sign Up </a></li>
+            <li><a href="../login.html"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
           </ul>
         </div>
       </div>
@@ -134,14 +92,12 @@
           <p class = "text"> 89 </p>
         </span>
         <br>
-        <button id = "submit" class = "button input_text" onclick = "submit('.$last_id.')"> Submit </button>
+        <button id = "submit" class = "button input_text" onclick = "submit()"> Submit </button>
       </div>
 
       <div id = "result_section">
         <p class = "header_text"> Results </p>
-	<span>
-	<script> showResults('.$last_id.') </script>
-	</span>
+	<div id = "card_section"> </div>
       </div>
 
     <div id="statistics_section">
@@ -155,13 +111,13 @@
         <span class = "title_text">Planning Poker</span>
 
         <p class="footer-links">
-          <a class = "text" href="index.html">Home</a>
+          <a class = "text" href="../index.html">Home</a>
           ·
           <a class = "text" href="#">Options</a>
           ·
-          <a class = "text" href="signup.html">Sign Up</a>
+          <a class = "text" href="../signup.html">Sign Up</a>
           ·
-          <a class = "text" href="login.html">Login</a>
+          <a class = "text" href="../login.html">Login</a>
         </p>
 
         <p class="footer-company-name">DellEMC &copy; 2016</p>
