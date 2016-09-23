@@ -1,36 +1,15 @@
 selected_card = "";
 estimates = new Array();
 var showPlayersInterval;
- 
-function showPlayers()
-{
-showPlayersInterval = setInterval(function showPlayers()
-{
-  url = window.location.href;
-  params = url.split('?');
-  params = url.split('=');
-
-  last_id = params[1];
-  $.ajax
-  ({
-    data: {'last_id': last_id},
-    url: '/php/showPlayers.php',
-    method: 'POST', // or GET
-    success: function(msg)
-    { 
-      $('#card_section').empty();
-      $('#show_results_button').remove();
-      $('#card_section').append(msg);
-      $('#result_section').append('<button id = "show_results_button" class = "button input_text" onclick = "showResults()"> Show </button>');
- 
-    }
-  });
-}, 1000);
-}
+var showResultsInterval;
 
 function showResults()
 {
-var showResultsInterval = setInterval(function showResults()
+clearInterval(showPlayersInterval);
+$('#show_result_button').remove()
+$('#result_section').prepend('<img id = "hide_result_button" onclick ="hideResultsButton()" src = "../images/hide_eye_icon.ico"> </img>');
+ 
+showResultsInterval = setInterval(function showResultsLoop()
 {
   url = window.location.href;
   params = url.split('?');
@@ -44,13 +23,101 @@ var showResultsInterval = setInterval(function showResults()
     method: 'POST', // or GET
     success: function(msg)
     { 
+      showResultsBool = (msg.slice(-1));
+      msg = msg.slice(0, -1); 
+      if (showResultsBool == "1")
+      {
       $('#card_section').empty();
       $('#card_section').append(msg);
       showVisualizations();
-      clearInterval(showPlayersInterval);
+      }
+      else if (showResultsBool == "0")
+      {
+	showPlayers();
+      }
+      else
+      {
+	return;
+      }
     }
   });
-}, 1000);
+}, 100);
+}
+
+function showResultsButton()
+{
+  url = window.location.href;
+  params = url.split('?');
+  params = url.split('=');
+
+  last_id = params[1];
+  $.ajax
+  ({
+    data: {'last_id': last_id},
+    url: '/php/showResultsButton.php',
+    method: 'POST', // or GET
+    success: function(msg)
+    { 
+    }
+  });
+}
+ 
+function hideResultsButton()
+{
+  url = window.location.href;
+  params = url.split('?');
+  params = url.split('=');
+
+  last_id = params[1];
+  $.ajax
+  ({
+    data: {'last_id': last_id},
+    url: '/php/hideResultsButton.php',
+    method: 'POST', // or GET
+    success: function(msg)
+    { 
+    }
+  });
+}
+
+function showPlayers()
+{
+clearInterval(showResultsInterval);
+$('#hide_result_button').remove();
+$('#result_section').prepend('<img id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.ico"> </img>');
+ 
+showPlayersInterval = setInterval(function showPlayersLoop()
+{
+  url = window.location.href;
+  params = url.split('?');
+  params = url.split('=');
+
+  last_id = params[1];
+  $.ajax
+  ({
+    data: {'last_id': last_id},
+    url: '/php/showPlayers.php',
+    method: 'POST', // or GET
+    success: function(msg)
+    {
+      showResultsBool = (msg.slice(-1));
+      msg = msg.slice(0, -1); 
+      if (showResultsBool == "0")
+      {
+      $('#card_section').empty();
+      $('#card_section').append(msg);
+     }
+      else if (showResultsBool == "1")
+      {
+	showResults();
+      }
+      else
+      {
+	return;
+      }
+    }
+  });
+}, 100);
 }
 
 function showVisualizations()
@@ -87,7 +154,7 @@ function showVisualizations()
     boxpoints: 'suspectedoutliers'
   };
 
-  var layout = {
+  var box_layout = {
     title: 'Story Estimate Box Plot',
     titlefont: {
       family: 'Arial',
@@ -123,8 +190,62 @@ function showVisualizations()
     plot_bgcolor: 'rgb(34, 34, 34)'
   };
 
-  data = [trace1];
-  Plotly.newPlot('box_plot', data, layout);
+  box_data = [trace1];
+  Plotly.newPlot('box_plot', box_data, box_layout);
+
+  var hist_layout = {
+    title: 'Story Estimate Histogram',
+    titlefont: {
+      family: 'Arial',
+      size: 22,
+      color: '#ffffff'
+    },
+    xaxis: {
+      title: 'Points',
+      titlefont: {
+        family: 'Arial',
+        size: 18,
+        color: '#ffffff'
+      },
+      autorange: true,
+      showgrid: true,
+      zeroline: true,
+      dtick: 5,
+      gridcolor: 'rgba(100, 100, 100, .6)',
+      gridwidth: 1,
+      zerolinecolor: 'rgba(100, 100, 100, .6)',
+      zerolinewidth: 1,
+      color: 'rgb(255, 255, 255)'
+    },
+    yaxis: {
+      titlefont: {
+        family: 'Arial',
+        size: 18,
+        color: '#ffffff'
+      },
+      color: 'rgb(255, 255, 255)'
+    },
+    paper_bgcolor: 'rgb(34, 34, 34)',
+    plot_bgcolor: 'rgb(34, 34, 34)'
+  };
+
+
+  var trace2 = [
+  {
+    x: data,
+    type: 'histogram',
+    xbins: {
+      end: 10, 
+      size: 1, 
+      start: 0
+    },
+ 
+	marker: {
+    color: 'rgba(255, 255, 255,0.7)',
+	},
+ }
+  ];
+  Plotly.newPlot('hist_plot', trace2, hist_layout);
 
     }
   }); 
@@ -215,7 +336,6 @@ function submit()
 	estimates = msg;
     }
   });
-  showPlayers();
 };
 
 function selectCard(card)

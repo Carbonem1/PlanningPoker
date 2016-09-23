@@ -90,10 +90,19 @@
   border-radius: 5px;
 }
 
-#eye_icon
+#show_result_button
 {
   float: right;
   margin: 10px;
+  margin-top: 0px;
+}
+
+
+#hide_result_button
+{
+  float: right;
+  margin: 10px;
+  margin-top: 0px;
 }
 
 #statistics_section
@@ -109,12 +118,23 @@
 #box_plot
 {
   height: 300px;
-  width: 70%;
+  width: 80%;
   margin: 50px;
   background-color: #bfbfbf;
   opacity: 1;
   border-radius: 5px;
 }
+
+#hist_plot
+{
+  height: 300px;
+  width: 80%;
+  margin: 50px;
+  background-color: #bfbfbf;
+  opacity: 1;
+  border-radius: 5px;
+}
+
 
 .input_text
 {

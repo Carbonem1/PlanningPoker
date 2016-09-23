@@ -39,6 +39,13 @@ try {
         	echo 	'</span>';
 		echo '</span>';
     	}
+    	$conn = new PDO("mysql:host=$servername;dbname=$database", $db_username, $db_password);
+    	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    	$sql = ("SELECT roomID, showResults FROM Rooms WHERE roomID = $roomID"); 
+	foreach ($conn->query($sql) as $row) {
+        	$showResults = $row['showResults'];
+		echo $showResults;
+    	}
 }
 catch(PDOException $e) {
     	echo "Error: " . $e->getMessage();
