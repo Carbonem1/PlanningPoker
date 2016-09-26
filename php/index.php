@@ -57,9 +57,9 @@
 	</span>
 	<br>
 
-        <span id = "card0" name = "?" tabindex="1" class = "card" onclick= "selectCard(this.id)">
+        <!-- <span id = "card0" name = "?" tabindex="1" class = "card" onclick= "selectCard(this.id)"> 
           <p class = "text"> ? </p>
-        </span>
+        </span> -->
         <span id = "card1" name = "0"  tabindex="1" class = "card" onclick= "selectCard(this.id)">
           <p class = "text"> 0 </p>
         </span>
@@ -104,7 +104,9 @@
             </div>
 
     <div id="statistics_section">
+      <div id = "statistics_header_section">
       <p class = "header_text"> Statistics </p>
+      </div>
       <div id = "box_plot"> </div>
       <div id = "hist_plot"> </div>
     </div>

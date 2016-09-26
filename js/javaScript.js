@@ -1,8 +1,10 @@
 var current_user_id = "";
 var selected_card = "";
 var estimates = new Array();
+var mean;
 var showPlayersInterval;
 var showResultsInterval;
+var same_result_bool;
 
 function copyRoomLink()
 {
@@ -15,7 +17,9 @@ function showResults()
 clearInterval(showPlayersInterval);
 $('#show_result_button').remove()
 $('#result_section').prepend('<img title = "Click to hide results" id = "hide_result_button" onclick ="hideResultsButton()" src = "../images/hide_eye_icon.ico"> </img>');
- 
+//alert("                  YAao,\n                     Y8888b,\n                   ,oA8888888b,\n             ,aaad8888888888888888bo,\n          ,d888888888888888888888888888b,\n        ,888888888888888888888888888888888b,\n       d8888888888888888888888888888888888888,\n      d888888888888888888888888888888888888888b\n     d888888P'                                        `Y888888888888,\n     88888P'                                         Ybaaaa8888888888l\n    a8888'                                               `Y8888P' `V888888\n  d8888888a                                                             `Y8888\n AY/'' `\ Y8b                                                                  ``Y8b\n Y'      `YP                                                                         ~~");
+
+
 showResultsInterval = setInterval(function showResultsLoop()
 {
   url = window.location.href;
@@ -36,6 +40,7 @@ showResultsInterval = setInterval(function showResultsLoop()
       {
       $('#card_section').empty();
       $('#card_section').append(msg);
+
       showVisualizations();
       }
       else if (showResultsBool == "0")
@@ -144,6 +149,7 @@ function showVisualizations()
 	estimates = msg;
 	estimates = estimates.replace(/,\s*$/, "");
 	data = estimates.split(',');
+        same_result_bool = data.allValuesSame();
 
   var trace1 = {
     x: data,
@@ -217,12 +223,12 @@ function showVisualizations()
       autorange: true,
       showgrid: true,
       zeroline: true,
-      dtick: 5,
       gridcolor: 'rgba(100, 100, 100, .6)',
       gridwidth: 1,
       zerolinecolor: 'rgba(100, 100, 100, .6)',
       zerolinewidth: 1,
-      color: 'rgb(255, 255, 255)'
+      color: 'rgb(255, 255, 255)',
+      tickvals:['0', '1', '2', '3', '5', '8', '13', '21', '34', '55', '89']
     },
     yaxis: {
       titlefont: {
@@ -230,7 +236,8 @@ function showVisualizations()
         size: 18,
         color: '#ffffff'
       },
-      color: 'rgb(255, 255, 255)'
+      color: 'rgb(255, 255, 255)',
+      dtick: 1
     },
     paper_bgcolor: 'rgb(34, 34, 34)',
     plot_bgcolor: 'rgb(34, 34, 34)'
@@ -240,20 +247,26 @@ function showVisualizations()
   var trace2 = [
   {
     x: data,
-    type: 'histogram',
-    xbins: {
-      end: 10, 
-      size: 1, 
-      start: 0
+    type: 'histogram', 
+    autobinx: false, 
+    marker: {
+      color: 'rgba(255, 255, 255,0.7)',
     },
- 
-	marker: {
-    color: 'rgba(255, 255, 255,0.7)',
-	},
+    xbins: {
+      end: 100, 
+      size: .5,  
+      start: 0
+    }
  }
   ];
   Plotly.newPlot('hist_plot', trace2, hist_layout);
-
+  var total = 0;
+  for (var i = 0; i < data.length; i++) {
+    total += data[i] << 0;
+  }
+  mean = (total/data.length).toFixed(2);
+  $('#mean').remove()
+  $('#statistics_header_section').append('<p id = "mean" class = "statistics_text"> Mean: '+mean+' </p>');
     }
   }); 
 
@@ -353,7 +366,7 @@ function selectCard(card)
   current_card = document.getElementById(card);
 
   // get all card's IDs
-  card0 = document.getElementById("card0");
+  //card0 = document.getElementById("card0");
   card1 = document.getElementById("card1");
   card2 = document.getElementById("card2");
   card3 = document.getElementById("card3");
@@ -367,7 +380,7 @@ function selectCard(card)
   card11 = document.getElementById("card11");
 
   // reset all card's colors
-  card0.style.backgroundColor = "#262626";
+  //card0.style.backgroundColor = "#262626";
   card1.style.backgroundColor = "#262626";
   card2.style.backgroundColor = "#262626";
   card3.style.backgroundColor = "#262626";
@@ -385,3 +398,15 @@ function selectCard(card)
   current_card.style.backgroundColor = "black";
   selected_card = current_card.getAttribute("name");
 };
+
+// function to check if all values of an array are equal
+Array.prototype.allValuesSame = function() {
+
+    for(var i = 1; i < this.length; i++)
+    {
+        if(this[i] !== this[0])
+            return false;
+    }
+
+    return true;
+}
