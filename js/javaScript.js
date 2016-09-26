@@ -1,13 +1,20 @@
-selected_card = "";
-estimates = new Array();
+var current_user_id = "";
+var selected_card = "";
+var estimates = new Array();
 var showPlayersInterval;
 var showResultsInterval;
+
+function copyRoomLink()
+{
+url = window.location.href;
+window.prompt("Copy to clipboard: Ctrl+C, Enter", url);
+}
 
 function showResults()
 {
 clearInterval(showPlayersInterval);
 $('#show_result_button').remove()
-$('#result_section').prepend('<img id = "hide_result_button" onclick ="hideResultsButton()" src = "../images/hide_eye_icon.ico"> </img>');
+$('#result_section').prepend('<img title = "Click to hide results" id = "hide_result_button" onclick ="hideResultsButton()" src = "../images/hide_eye_icon.ico"> </img>');
  
 showResultsInterval = setInterval(function showResultsLoop()
 {
@@ -84,7 +91,7 @@ function showPlayers()
 {
 clearInterval(showResultsInterval);
 $('#hide_result_button').remove();
-$('#result_section').prepend('<img id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.ico"> </img>');
+$('#result_section').prepend('<img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.ico"> </img>');
  
 showPlayersInterval = setInterval(function showPlayersLoop()
 {
@@ -295,7 +302,11 @@ function createRoom()
 function submit()
 {
   name_input = document.getElementById("name_input");
-  given_name = name_input.value;
+  if (name_input != null)
+  {
+    given_name = name_input.value;
+  }
+  
   parent = document.getElementById("user_section");
 
   // TODO: change alert to a nicer looking message
@@ -310,17 +321,15 @@ function submit()
     return;
   }
 
-  // remove name and submit button
-  parent.removeChild(name_input);
-
   // display the user's name
   paragraph = document.createElement("P");
   name_input = document.createTextNode(given_name);
   paragraph.className = "header_text";
   paragraph.style.marginBottom = "-22px";
   paragraph.appendChild(name_input);
-  parent.insertBefore(paragraph, parent.firstChild);
-  
+  $("#name_input").replaceWith(paragraph);
+	  
+
   url = window.location.href;
   params = url.split('?');
   params = url.split('=');
@@ -328,12 +337,12 @@ function submit()
   last_id = params[1];
   $.ajax
   ({
-    data: {'last_id': last_id, 'username': given_name, 'card': selected_card},
+    data: {'last_id': last_id, 'username': given_name, 'card': selected_card, 'current_user_id': current_user_id},
     url: '/php/submit.php',
     method: 'POST', // or GET
     success: function(msg)
     {
-	estimates = msg;
+	current_user_id = msg;
     }
   });
 };

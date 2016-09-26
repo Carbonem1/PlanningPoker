@@ -105,6 +105,13 @@
   margin-top: 0px;
 }
 
+#copy_room_link_button
+{
+  float: right;
+  margin: 10px;
+}
+
+
 #statistics_section
 {
   width: 70%;
@@ -149,6 +156,7 @@
   font-weight: bold;
   font-size: 50px;
   margin: 9px;
+  left: 50%;
 }
 .text
 {

@@ -52,8 +52,10 @@
       <p id = "title"> Planning Poker </p>
 
       <div id = "user_section">
+	<span id = "user_section_header">
         <input id = "name_input" class = "input_text" type="text" name = "name" placeholder = "Name">
-        <br>
+	</span>
+	<br>
 
         <span id = "card0" name = "?" tabindex="1" class = "card" onclick= "selectCard(this.id)">
           <p class = "text"> ? </p>
@@ -96,7 +98,8 @@
       </div>
 
       <div id = "result_section">
-        <p class = "header_text"> Results </p>
+	<img id = "copy_room_link_button" title = "Click to copy room link" src = "../images/copy_link.png" onclick = "copyRoomLink()">
+	<p class = "header_text"> Results </p>
 	<div id = "card_section"> </div>
             </div>
 
