@@ -15,8 +15,7 @@ window.prompt("Copy to clipboard: Ctrl+C, Enter", url);
 function showResults()
 {
 clearInterval(showPlayersInterval);
-$('#show_result_button').remove()
-$('#result_section').prepend('<img title = "Click to hide results" id = "hide_result_button" onclick ="hideResultsButton()" src = "../images/hide_eye_icon.ico"> </img>');
+$('#show_result_button').replaceWith('<img title = "Click to hide results" id = "hide_result_button" onclick ="hideResultsButton()" src = "../images/hide_eye_icon.ico"> </img>');
 //alert("                  YAao,\n                     Y8888b,\n                   ,oA8888888b,\n             ,aaad8888888888888888bo,\n          ,d888888888888888888888888888b,\n        ,888888888888888888888888888888888b,\n       d8888888888888888888888888888888888888,\n      d888888888888888888888888888888888888888b\n     d888888P'                                        `Y888888888888,\n     88888P'                                         Ybaaaa8888888888l\n    a8888'                                               `Y8888P' `V888888\n  d8888888a                                                             `Y8888\n AY/'' `\ Y8b                                                                  ``Y8b\n Y'      `YP                                                                         ~~");
 
 
@@ -95,8 +94,7 @@ function hideResultsButton()
 function showPlayers()
 {
 clearInterval(showResultsInterval);
-$('#hide_result_button').remove();
-$('#result_section').prepend('<img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.ico"> </img>');
+$('#hide_result_button').replaceWith('<img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.ico"> </img>');
  
 showPlayersInterval = setInterval(function showPlayersLoop()
 {
@@ -169,22 +167,22 @@ function showVisualizations()
 
   var box_layout = {
     title: 'Story Estimate Box Plot',
+    hovermode: false,
     titlefont: {
-      family: 'Arial',
+      family: 'Gidole',
       size: 22,
       color: '#ffffff'
     },
     xaxis: {
       title: 'Points',
       titlefont: {
-        family: 'Arial',
+        family: 'Gidole',
         size: 18,
         color: '#ffffff'
       },
       autorange: true,
       showgrid: true,
       zeroline: true,
-      dtick: 5,
       gridcolor: 'rgba(100, 100, 100, .6)',
       gridwidth: 1,
       zerolinecolor: 'rgba(100, 100, 100, .6)',
@@ -197,7 +195,8 @@ function showVisualizations()
         size: 18,
         color: '#ffffff'
       },
-      color: 'rgb(255, 255, 255)'
+      color: 'rgb(255, 255, 255)',
+      showticklabels: false
     },
     paper_bgcolor: 'rgb(34, 34, 34)',
     plot_bgcolor: 'rgb(34, 34, 34)'
@@ -208,15 +207,16 @@ function showVisualizations()
 
   var hist_layout = {
     title: 'Story Estimate Histogram',
+    hovermode: false,
     titlefont: {
-      family: 'Arial',
+      family: 'Gidole',
       size: 22,
       color: '#ffffff'
     },
     xaxis: {
       title: 'Points',
       titlefont: {
-        family: 'Arial',
+        family: 'Gidole',
         size: 18,
         color: '#ffffff'
       },
@@ -232,7 +232,7 @@ function showVisualizations()
     },
     yaxis: {
       titlefont: {
-        family: 'Arial',
+        family: 'Gidole',
         size: 18,
         color: '#ffffff'
       },
@@ -310,6 +310,12 @@ function createRoom()
 	window.location.replace("/php/index.php?roomID=" + msg);
     }
   });
+};
+
+function joinRoom()
+{
+  roomID = $('#join_room_input').val();
+  window.location.replace("/php/index.php?roomID=" + roomID);
 };
 
 function submit()
@@ -410,3 +416,4 @@ Array.prototype.allValuesSame = function() {
 
     return true;
 }
+

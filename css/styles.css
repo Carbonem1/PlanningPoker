@@ -4,8 +4,8 @@
 }
 
 @font-face {
-    font-family: Minimal;
-    src: url("../fonts/minimal.otf");
+    font-family: Gidole;
+    src: url("../fonts/Gidole-Regular.otf");
 }
 
 #body
@@ -147,12 +147,12 @@
 {
   color: black;
   font-size: 25px;
-  font-family: Minimal, Arial;
+  font-family: Gidole, Arial;
 }
 
 .header_text
 {
-  font-family: Minimal, Arial;
+  font-family: Gidole, Arial;
   font-weight: bold;
   font-size: 50px;
   margin: 9px;
@@ -162,19 +162,24 @@
 {
   color: white;
   font-size: 25px;
-  font-family: Minimal, Arial;
+  font-family: Gidole, Arial;
 }
 
 .statistics_text
 {
   color: black;
-  font-size: 35px;
-  font-family: Minimal, Arial;
+  font-size: 25px;
+  font-family: Gidole, Arial;
 }
 
 .username_text
 {
   color: black;
   font-size: 25px;
-  font-family: Minimal, Arial;
+  font-family: Gidole, Arial;
+}
+
+#results_header
+{
+  left: 5%;
 }

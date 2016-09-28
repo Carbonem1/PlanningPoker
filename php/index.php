@@ -33,16 +33,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../index.html">Planning Poker</a>
+          <a class="navbar-brand text" href="../index.html">Planning Poker</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="../index.html">Home</a></li>
+            <li><a href="../index.html">Home</a></li>
             <li><a href="#">Options</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="../signup.html"><span class="glyphicon glyphicon-user"></span> Sign Up </a></li>
-            <li><a href="../login.html"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
+            <li><a href="../signup.html"><span></span> Sign Up </a></li>
+            <li><a href="../login.html"><span></span> Login </a></li>
           </ul>
         </div>
       </div>
@@ -99,9 +99,11 @@
 
       <div id = "result_section">
 	<img id = "copy_room_link_button" title = "Click to copy room link" src = "../images/copy_link.png" onclick = "copyRoomLink()">
-	<p class = "header_text"> Results </p>
+        <img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.ico"> </img>
+	<p id = "results_header" class = "header_text"> Results </p>
+
 	<div id = "card_section"> </div>
-            </div>
+      </div>
 
     <div id="statistics_section">
       <div id = "statistics_header_section">
@@ -115,27 +117,11 @@
     <footer class="footer-distributed">
       <div class="footer-left">
         <span class = "title_text">Planning Poker</span>
-
-        <p class="footer-links">
-          <a class = "text" href="../index.html">Home</a>
-          ·
-          <a class = "text" href="#">Options</a>
-          ·
-          <a class = "text" href="../signup.html">Sign Up</a>
-          ·
-          <a class = "text" href="../login.html">Login</a>
-        </p>
-
         <p class="footer-company-name">DellEMC &copy; 2016</p>
       </div>
       <div class="footer-right">
         <p class = "text footer_name"> Michael Carbone </p> <br>
         <p class="footer-company-name"> Michael.Carbone@emc.com </p>
-        <div class="footer-icons">
-          <a href="" class="fa fa-facebook"></i></a>
-          <a href="" class="fa fa-linkedin"></i></a>
-          <a href="" class="fa fa-github"></i></a>
-        </div>
       </div>
     </footer>';
     $conn->close();
