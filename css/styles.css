@@ -22,6 +22,51 @@
   margin-top: 40px;
 }
 
+#signup_section
+{
+  width: 70%;
+  margin: 50px;
+  padding: 25px;
+  background-color: #bfbfbf;
+  opacity: 1;
+  border-radius: 5px;
+}
+
+.signup_input
+{
+ width: 50%;
+ margin: 10px;
+ margin-right: 0px;
+ padding: 5px;
+}
+
+#login_section
+{
+  width: 70%;
+  margin: 50px;
+  padding: 25px;
+  background-color: #bfbfbf;
+  opacity: 1;
+  border-radius: 5px;
+}
+
+.login_input
+{
+ width: 50%;
+ margin: 10px;
+ margin-right: 0px;
+ padding: 5px;
+}
+
+#password_input
+{
+ width: 50%;
+ margin: 10px;
+ margin-right: 0px;
+ padding: 5px;
+}
+
+
 #user_section
 {
   width: 70%;
@@ -158,6 +203,7 @@
   margin: 9px;
   left: 50%;
 }
+
 .text
 {
   color: white;
@@ -176,6 +222,20 @@
 {
   color: black;
   font-size: 25px;
+  font-family: Gidole, Arial;
+}
+
+.error_text
+{
+  color: red;
+  font-size: 14px;
+  font-family: Gidole, Arial;
+}
+
+.success_text
+{
+  color: green;
+  font-size: 14px;
   font-family: Gidole, Arial;
 }
 

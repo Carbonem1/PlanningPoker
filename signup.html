@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -6,21 +7,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS -->
-    <link rel = "stylesheet" href = "css/signup.css">
+    <link rel = "stylesheet" href = "css/styles.css">
     <!-- JavaScript -->
-    <script src="js/javaScript.js"></script>
+    <script type ="text/javascript" src = "js/javaScript.js"> </script>
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  	<link rel="stylesheet" href="css/footer-distributed-with-contact-form.css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/footer-distributed-with-contact-form.css">
     <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/ajaxjquery.min.js"></script>
+    <!-- Plotly.js -->
+    <script src="js/plotly-latest.min.js"></script>
   </head>
 
   <body id = "body">
-    <!-- Bootstrap nav bar -->
+    <!-- Bootstrap Header -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -38,8 +40,8 @@
             <li><a href="#">Options</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li class = "active"><a href="signup.html"><span class="glyphicon glyphicon-user"></span> Sign Up </a></li>
-            <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
+            <li class="active"><a href="signup.html"><span></span> Sign Up </a></li>
+            <li><a href="login.html"><span></span> Login </a></li>
           </ul>
         </div>
       </div>
@@ -50,11 +52,19 @@
 
       <div id = "signup_section">
           <div id = "submit_signup_section">
-            <input id = "email_input" class = "input_text" type="text" name = "email" placeholder = "Email"> <br>
-            <input id = "username_input" class = "input_text" type="text" name = "username" placeholder = "Username"> <br>
-            <input id = "password_input" class = "input_text" type="password" name = "password" placeholder = "Password"> <br>
-            <input id = "confirm_password_input" class = "input_text" type="password" name = "confirm_password" placeholder = "Password"> <br>
-            <button disabled id = "submit" class = "button input_text"> Sign Up </button>
+	    <div id = signup_email_section>
+            <input id = "email_input" class = "signup_input input_text" type="text" name = "email" placeholder = "Email"> <br>
+	    </div>
+	    <div id = signup_username_section>
+            <input id = "username_input" class = "signup_input input_text" type="text" name = "username" placeholder = "Username"> <br>
+	    </div>
+	    <div id = signup_password_section>
+            <input id = "password_input" class = "signup_input input_text" type="password" name = "password" placeholder = "Password"> <br>
+	    </div>
+  	    <div id = signup_confirm_password_section>
+            <input id = "confirm_password_input" class = "signup_input input_text" type="password" name = "confirm_password" placeholder = "Confirm Password"> <br>
+	    </div>
+            <button id = "submit" class = "button input_text" onclick = "signUp()"> Sign Up </button>
           </div>
       </div>
     </center>
@@ -63,28 +73,15 @@
     <footer class="footer-distributed bottom">
       <div class="footer-left">
         <span class = "title_text">Planning Poker</span>
-
-        <p class="footer-links">
-          <a class = "text" href="index.html">Home</a>
-          ·
-          <a class = "text" href="#">Options</a>
-          ·
-          <a class = "text" href="signup.html">Sign Up</a>
-          ·
-          <a class = "text" href="login.html">Login</a>
-        </p>
-
         <p class="footer-company-name">DellEMC &copy; 2016</p>
       </div>
       <div class="footer-right">
         <p class = "text footer_name"> Michael Carbone </p> <br>
         <p class="footer-company-name"> Michael.Carbone@emc.com </p>
-        <div class="footer-icons">
-          <a href="https://www.facebook.com/michael.carbone.18"><i class="fa fa-facebook"></i></a>
-          <a href="https://www.linkedin.com/in/michael-carbone-14b13b8b?trk=nav_responsive_tab_profile_pic"><i class="fa fa-linkedin"></i></a>
-          <a href="https://github.com/Carbonem1?tab=repositories"><i class="fa fa-github"></i></a>
         </div>
       </div>
     </footer>
   </body>
 </html>
+
+

@@ -272,31 +272,185 @@ function showVisualizations()
 
 };
 
-function signUp(username, password, confirm_password, email)
+/* ---------- Sign Up ---------- */
+function signUp()
 {
+  username = document.getElementById('username_input').value;
+  password = document.getElementById('password_input').value;
+  confirm_password = document.getElementById('confirm_password_input').value;
+  email = document.getElementById('email_input').value;
+
+  var valid_form = signUpFormValidation(username, password, confirm_password, email);
+  if (valid_form)
+  {
   $.ajax
   ({
-    data: 'username=' + username + ", password=" + password + ", confirm_password=" + confirm_password + ", email=" + email,
+    data: {'username': username, "password": password, "confirm_password": confirm_password, "email": email},
     url: '/php/signUp.php',
-    method: 'POST', // or GET
+    method: 'GET',
     success: function(msg)
     {
+	if (msg === "signed_up")
+	  {
+	    $('#signup_section').append("<p id = 'signup_success_text' class = 'success_text'> Success! </p>")
+  	  }
     }
   });
+  }
 };
 
-function logIn(username, password)
+function signUpFormValidation(username, password, confirm_password, email)
 {
+  var valid = true;
+  if (!validateSignUpEmail(email))
+  {
+    valid = false;
+  }
+  if (!validateSignUpUsername(username))
+  {
+    valid = false;
+  }
+  if (!validateSignUpPassword(password))
+  {
+    valid = false;
+  }
+  if (!validateSignUpConfirmPassword(password, confirm_password))
+  {
+    valid = false;
+  }
+  return valid;
+}
+
+function validateSignUpEmail(email)
+{
+  // clear existing errors
+  $('#signup_email_error').remove();
+
+  email_length = email.length;
+  if (email_length == 0)
+  {
+    $('#signup_email_section').append("<p id = 'signup_email_error' class = 'error_text'> Email can not be empty </p>");
+    return false;
+  }
+  return true; 
+}
+
+function validateSignUpUsername(username)
+{
+  // clear existing errors
+  $('#signup_username_error').remove();
+
+  username_length = username.length;
+  if (username_length == 0)
+  {
+    $('#signup_username_section').append("<p id = 'signup_username_error' class = 'error_text'> Username can not be empty </p>")
+    return false;
+  }
+  return true;
+}
+
+function validateSignUpPassword(password)
+{
+  // clear existing errors
+  $('#signup_password_error').remove();
+
+  password_length = password.length;
+  if (password_length == 0)
+  {
+    $('#signup_password_section').append("<p id = 'signup_password_error' class = 'error_text'> Password can not be empty </p>")
+    return false;
+  }
+  return true;
+}
+
+function validateSignUpConfirmPassword(password, confirm_password)
+{
+  // clear existing errors
+  $('#signup_confirm_password_error').remove();
+  $('#signup_confirm_password_match_error').remove();
+
+  confirm_password_length = confirm_password.length;
+  if (confirm_password_length == 0)
+  {
+    $('#signup_confirm_password_section').append("<p id = 'signup_confirm_password_error' class = 'error_text'> Confirm password can not be empty </p>")
+    return false;
+  }
+  if (confirm_password != password)
+  {
+    $('#signup_confirm_password_section').append("<p id = 'signup_confirm_password_match_error' class = 'error_text'> Password and confirm password must match </p>")
+    return false;
+  }
+  return true;
+}
+
+/* ---------- Login ---------- */
+function login()
+{  
+  username = document.getElementById('login_username_input').value;
+  password = document.getElementById('login_password_input').value;
+
+  if (loginFormValidation(username, password))
+  { 
   $.ajax
   ({
-    data: 'username=' + username + ", password=" + password,
+    data: {'username': username, "password": password},
     url: '/php/logIn.php',
-    method: 'POST', // or GET
+    method: 'GET',
     success: function(msg)
     {
+	if(msg == "logged_in")
+	{
+	   $('#login_section').append("<p id = 'login_success_text' class = 'success_text'> Success! </p>")
+	}
+	else
+	{
+	   $('#login_section').append("<p id = 'login_error' class = 'error_text'> Invalid username password combination </p>")
+	}
     }
   });
+  }
 };
+
+function loginFormValidation(username, password)
+{
+  var valid = true;
+  if (!validateLoginUsername(username))
+  {
+    valid = false;
+  }
+  if (!validateLoginPassword(password))
+  {
+    valid = false;
+  }
+  return valid;
+}
+function validateLoginUsername(username)
+{
+  // clear existing errors
+  $('#login_username_error').remove();
+
+  username_length = username.length;
+  if (username_length == 0)
+  {
+    $('#login_username_section').append("<p id = 'login_username_error' class = 'error_text'> Username can not be empty </p>")
+    return false;
+  }
+  return true;
+}
+
+function validateLoginPassword(password)
+{
+  // clear existing errors
+  $('#login_password_error').remove();
+
+  password_length = password.length;
+  if (password_length == 0)
+  {
+    $('#login_password_section').append("<p id = 'login_password_error' class = 'error_text'> Password can not be empty </p>")
+    return false;
+  }
+  return true;
+}
 
 function createRoom()
 {
