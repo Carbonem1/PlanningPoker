@@ -1,0 +1,85 @@
+@font-face {
+    font-family: Bellerose;
+    src: url("../fonts/Bellerose.ttf");
+}
+
+@font-face {
+    font-family: Minimal;
+    src: url("../fonts/minimal.otf");
+}
+
+#body
+{
+  background-image: url("../images/background.jpg");
+}
+
+#title
+{
+  color: white;
+  font-size: 60px;
+  font-family: Bellerose, Arial;
+  margin-bottom: 50px;
+  margin-top: 40px;
+}
+
+#signup_section
+{
+  width: 70%;
+  margin: 50px;
+  padding: 25px;
+  background-color: #bfbfbf;
+  opacity: 1;
+  border-radius: 5px;
+}
+
+#username_input
+{
+ width: 50%;
+ margin: 10px;
+ margin-right: 0px;
+ padding: 5px;
+}
+
+#password_input
+{
+ width: 50%;
+ margin: 10px;
+ margin-right: 0px;
+ padding: 5px;
+}
+
+#confirm_password_input
+{
+ width: 50%;
+ margin: 10px;
+ margin-right: 0px;
+ padding: 5px;
+}
+
+#email_input
+{
+ width: 50%;
+ margin: 10px;
+ margin-right: 0px;
+ padding: 5px;
+}
+
+.button
+{
+  padding: 5px;
+}
+
+.input_text
+{
+  color: black;
+  font-size: 25px;
+  font-family: Minimal, Arial;
+}
+
+.text
+{
+  color: white;
+  font-size: 25px;
+  font-family: Minimal, Arial;
+  font-weight: bold;
+}

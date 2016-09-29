@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $servername = "localhost";
 $db_username = "root";
 $db_password = "PlanningPoker2016!";
@@ -25,11 +27,13 @@ try
 
 	if (password_verify($given_password, $password))
 	{
+	  $_SESSION['logged_in'] = true;
+	  $_SESSION['username'] = $given_username;
 	  echo "logged_in";
  	}
 	else
         {
-	  echo "BAD";
+	  echo "bad_password";
         }
     }
     

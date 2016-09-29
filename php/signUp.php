@@ -27,7 +27,8 @@ try
     if($row != NULL)
     {
       $conn = null;
-      exit("Username already exists");
+      echo "username_in_use";
+      exit;
     }
   }
   // insert user account into Users table

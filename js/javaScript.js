@@ -10,7 +10,7 @@ function copyRoomLink()
 {
 url = window.location.href;
 window.prompt("Copy to clipboard: Ctrl+C, Enter", url);
-}
+};
 
 function showResults()
 {
@@ -53,7 +53,7 @@ showResultsInterval = setInterval(function showResultsLoop()
     }
   });
 }, 100);
-}
+};
 
 function showResultsButton()
 {
@@ -71,7 +71,7 @@ function showResultsButton()
     { 
     }
   });
-}
+};
  
 function hideResultsButton()
 {
@@ -89,7 +89,7 @@ function hideResultsButton()
     { 
     }
   });
-}
+};
 
 function showPlayers()
 {
@@ -128,7 +128,7 @@ showPlayersInterval = setInterval(function showPlayersLoop()
     }
   });
 }, 100);
-}
+};
 
 function showVisualizations()
 {
@@ -291,8 +291,20 @@ function signUp()
     success: function(msg)
     {
 	if (msg === "signed_up")
+	  { 
+	    // clear existing errors
+  	    $('#signup_success_text').remove();
+  	    $('#username_in_use_text').remove();
+
+	    $('#signup_section').append("<p id = 'signup_success_text' class = 'success_text'> Success! </p>");
+  	  }
+	if (msg === "username_in_use")
 	  {
-	    $('#signup_section').append("<p id = 'signup_success_text' class = 'success_text'> Success! </p>")
+	    // clear existing errors
+  	    $('#signup_success_text').remove();
+  	    $('#username_in_use_text').remove();
+
+	    $('#signup_section').append("<p id = 'username_in_use_text' class = 'error_text'> Username already taken </p>");
   	  }
     }
   });
@@ -319,7 +331,7 @@ function signUpFormValidation(username, password, confirm_password, email)
     valid = false;
   }
   return valid;
-}
+};
 
 function validateSignUpEmail(email)
 {
@@ -333,7 +345,7 @@ function validateSignUpEmail(email)
     return false;
   }
   return true; 
-}
+};
 
 function validateSignUpUsername(username)
 {
@@ -343,11 +355,11 @@ function validateSignUpUsername(username)
   username_length = username.length;
   if (username_length == 0)
   {
-    $('#signup_username_section').append("<p id = 'signup_username_error' class = 'error_text'> Username can not be empty </p>")
+    $('#signup_username_section').append("<p id = 'signup_username_error' class = 'error_text'> Username can not be empty </p>");
     return false;
   }
   return true;
-}
+};
 
 function validateSignUpPassword(password)
 {
@@ -357,11 +369,11 @@ function validateSignUpPassword(password)
   password_length = password.length;
   if (password_length == 0)
   {
-    $('#signup_password_section').append("<p id = 'signup_password_error' class = 'error_text'> Password can not be empty </p>")
+    $('#signup_password_section').append("<p id = 'signup_password_error' class = 'error_text'> Password can not be empty </p>");
     return false;
   }
   return true;
-}
+};
 
 function validateSignUpConfirmPassword(password, confirm_password)
 {
@@ -372,16 +384,16 @@ function validateSignUpConfirmPassword(password, confirm_password)
   confirm_password_length = confirm_password.length;
   if (confirm_password_length == 0)
   {
-    $('#signup_confirm_password_section').append("<p id = 'signup_confirm_password_error' class = 'error_text'> Confirm password can not be empty </p>")
+    $('#signup_confirm_password_section').append("<p id = 'signup_confirm_password_error' class = 'error_text'> Confirm password can not be empty </p>");
     return false;
   }
   if (confirm_password != password)
   {
-    $('#signup_confirm_password_section').append("<p id = 'signup_confirm_password_match_error' class = 'error_text'> Password and confirm password must match </p>")
+    $('#signup_confirm_password_section').append("<p id = 'signup_confirm_password_match_error' class = 'error_text'> Password and confirm password must match </p>");
     return false;
   }
   return true;
-}
+};
 
 /* ---------- Login ---------- */
 function login()
@@ -399,12 +411,21 @@ function login()
     success: function(msg)
     {
 	if(msg == "logged_in")
-	{
-	   $('#login_section').append("<p id = 'login_success_text' class = 'success_text'> Success! </p>")
+	{	   
+	   // clear existing errors
+  	   $('#login_success_text').remove();
+  	   $('#login_error').remove();
+
+	   $('#login_section').append("<p id = 'login_success_text' class = 'success_text'> Success! </p>");
+	   window.location.href = "index.html";
 	}
 	else
 	{
-	   $('#login_section').append("<p id = 'login_error' class = 'error_text'> Invalid username password combination </p>")
+	   // clear existing errors
+  	   $('#login_success_text').remove();
+  	   $('#login_error').remove();
+
+	   $('#login_section').append("<p id = 'login_error' class = 'error_text'> Invalid username password combination </p>");
 	}
     }
   });
@@ -423,7 +444,8 @@ function loginFormValidation(username, password)
     valid = false;
   }
   return valid;
-}
+};
+
 function validateLoginUsername(username)
 {
   // clear existing errors
@@ -432,11 +454,11 @@ function validateLoginUsername(username)
   username_length = username.length;
   if (username_length == 0)
   {
-    $('#login_username_section').append("<p id = 'login_username_error' class = 'error_text'> Username can not be empty </p>")
+    $('#login_username_section').append("<p id = 'login_username_error' class = 'error_text'> Username can not be empty </p>");
     return false;
   }
   return true;
-}
+};
 
 function validateLoginPassword(password)
 {
@@ -446,11 +468,25 @@ function validateLoginPassword(password)
   password_length = password.length;
   if (password_length == 0)
   {
-    $('#login_password_section').append("<p id = 'login_password_error' class = 'error_text'> Password can not be empty </p>")
+    $('#login_password_section').append("<p id = 'login_password_error' class = 'error_text'> Password can not be empty </p>");
     return false;
   }
   return true;
-}
+};
+
+function logout()
+{
+  $.ajax
+  ({
+    data: '',
+    url: '/php/logOut.php',
+    method: 'POST', // or GET
+    success: function(msg)
+    {
+	location.reload();
+    }
+  });
+};
 
 function createRoom()
 {
@@ -461,7 +497,7 @@ function createRoom()
     method: 'POST', // or GET
     success: function(msg)
     {
-	window.location.replace("/php/index.php?roomID=" + msg);
+	window.location.href = "/php/index.php?roomID=" + msg;
     }
   });
 };
@@ -469,7 +505,7 @@ function createRoom()
 function joinRoom()
 {
   roomID = $('#join_room_input').val();
-  window.location.replace("/php/index.php?roomID=" + roomID);
+  window.location.href = "/php/index.php?roomID=" + roomID;
 };
 
 function submit()
@@ -519,6 +555,32 @@ function submit()
     }
   });
 };
+
+function submit_logged_in(given_name)
+{
+  // check for a card
+  if(selected_card == '')
+  {
+    return;
+  }
+
+  url = window.location.href;
+  params = url.split('?');
+  params = url.split('=');
+ 
+  last_id = params[1];
+  $.ajax
+  ({
+    data: {'last_id': last_id, 'username': given_name, 'card': selected_card, 'current_user_id': current_user_id},
+    url: '/php/submit.php',
+    method: 'POST', // or GET
+    success: function(msg)
+    {
+	current_user_id = msg;
+    }
+  });
+};
+
 
 function selectCard(card)
 {
