@@ -1,4 +1,3 @@
-var current_user_id = "";
 var selected_card = "";
 var estimates = new Array();
 var mean;
@@ -297,8 +296,9 @@ function signUp()
   	    $('#username_in_use_text').remove();
 
 	    $('#signup_section').append("<p id = 'signup_success_text' class = 'success_text'> Success! </p>");
+	    loginAfterSignUp(username, password);
   	  }
-	if (msg === "username_in_use")
+	else if (msg === "username_in_use")
 	  {
 	    // clear existing errors
   	    $('#signup_success_text').remove();
@@ -306,6 +306,9 @@ function signUp()
 
 	    $('#signup_section').append("<p id = 'username_in_use_text' class = 'error_text'> Username already taken </p>");
   	  }
+	else
+	{
+	}
     }
   });
   }
@@ -432,6 +435,24 @@ function login()
   }
 };
 
+function loginAfterSignUp(username, password)
+{  
+  if (loginFormValidation(username, password))
+  { 
+  $.ajax
+  ({
+    data: {'username': username, "password": password},
+    url: '/php/logIn.php',
+    method: 'GET',
+    success: function(msg)
+    {
+	   window.location.href = "index.php";
+    }
+  });
+  }
+};
+
+
 function loginFormValidation(username, password)
 {
   var valid = true;
@@ -546,12 +567,11 @@ function submit()
   last_id = params[1];
   $.ajax
   ({
-    data: {'last_id': last_id, 'username': given_name, 'card': selected_card, 'current_user_id': current_user_id},
+    data: {'last_id': last_id, 'username': given_name, 'card': selected_card},
     url: '/php/submit.php',
     method: 'POST', // or GET
     success: function(msg)
     {
-	current_user_id = msg;
     }
   });
 };
@@ -571,12 +591,11 @@ function submit_logged_in(given_name)
   last_id = params[1];
   $.ajax
   ({
-    data: {'last_id': last_id, 'username': given_name, 'card': selected_card, 'current_user_id': current_user_id},
+    data: {'last_id': last_id, 'username': given_name, 'card': selected_card},
     url: '/php/submit.php',
     method: 'POST', // or GET
     success: function(msg)
     {
-	current_user_id = msg;
     }
   });
 };
