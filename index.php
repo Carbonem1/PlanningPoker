@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
   <head>
     <title> Planning Poker </title>
@@ -21,6 +20,42 @@
   </head>
 
   <body id = "body">
+<?php
+    session_start();
+    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)
+    {
+    echo '
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand text" href="#">Planning Poker</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Options</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class = "dropdown"> 
+  	      <a class = "dropdown-toggle text" data-toggle = "dropdown"> '.$_SESSION["username"].' <span class = "caret"> </span> </a>
+	      <ul class = "dropdown-menu">
+		<li> <a class = "dropdown-item" onclick = "logout()"> Log Out </a> </li>
+	      </ul>
+	    </li>
+          </ul>
+        </div>
+      </div>
+    </nav>';
+    }
+    else
+    {
+    echo'
     <!-- Bootstrap Header -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
@@ -31,36 +66,32 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.php">Planning Poker</a>
+          <a class="navbar-brand" href="#">Planning Poker</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
-            <li><a href="index.php">Home</a></li>
+            <li class="active"><a href="#">Home</a></li>
             <li><a href="#">Options</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="signup.html"><span></span> Sign Up </a></li>
-            <li class = "active"><a href="login.html"><span></span> Login </a></li>
+            <li><a href="login.html"><span></span> Login </a></li>
           </ul>
         </div>
       </div>
-    </nav>
-
+    </nav>';
+    }
+?>
     <center>
       <p id = "title"> Planning Poker </p>
 
-      <div id = "login_section">
-          <div id = "submit_login_section">
-	    <div id = "login_username_section">
-            <input id = "login_username_input" class = "login_input input_text" type="text" name = "username" placeholder = "Username"> <br>
-	    </div>
-	    <div id = "login_password_section">
-            <input id = "login_password_input" class = "login_input input_text" type="password" name = "password" placeholder = "Password"> <br>
-	    </div>
-            <button id = "submit" class = "button input_text" onclick = "login()"> Log In </button>
-          </div>
+      <div id = "user_section">
+      	<button onclick = "createRoom()" id = "submit" class = "button input_text"> Create Room </button>
+	<p class = "dark_text"> OR </p>
+	<input type = "text" id = "join_room_input" class = "input_text" placeholder = "Room ID" onkeydown = "if (event.keyCode == 13) document.getElementById('join_room_button').click()")"> </input>
+      	<button onclick = "joinRoom()" id = "join_room_button" class = "button input_text"> Join Room </button>
+	
       </div>
-    </center>
 
     <!-- Bootstrap footer -->
     <footer class="footer-distributed bottom">
@@ -74,7 +105,6 @@
         </div>
       </div>
     </footer>
+
   </body>
 </html>
-
-

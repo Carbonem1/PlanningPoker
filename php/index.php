@@ -35,11 +35,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand text" href="../index.html">Planning Poker</a>
+          <a class="navbar-brand text" href="../index.php">Planning Poker</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
-            <li><a href="../index.html">Home</a></li>
+            <li><a href="../index.php">Home</a></li>
             <li><a href="#">Options</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -105,7 +105,7 @@
 
       <div id = "result_section">
 	<img id = "copy_room_link_button" title = "Click to copy room link" src = "../images/copy_link.png" onclick = "copyRoomLink()">
-        <img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.ico"> </img>
+        <img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.png"> </img>
 	<p id = "results_header" class = "header_text"> Results </p>
 
 	<div id = "card_section"> </div>
@@ -123,7 +123,7 @@
     <footer class="footer-distributed">
       <div class="footer-left">
         <span class = "title_text">Planning Poker</span>
-        <p class="footer-company-name">DellEMC &copy; 2016</p>
+        <p class="footer-company-name">Dell EMC &copy; 2016</p>
       </div>
       <div class="footer-right">
         <p class = "text footer_name"> Michael Carbone </p> <br>
@@ -146,11 +146,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand text" href="../index.html">Planning Poker</a>
+          <a class="navbar-brand text" href="../index.php">Planning Poker</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
-            <li><a href="../index.html">Home</a></li>
+            <li><a href="../index.php">Home</a></li>
             <li><a href="#">Options</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -212,7 +212,7 @@
 
       <div id = "result_section">
 	<img id = "copy_room_link_button" title = "Click to copy room link" src = "../images/copy_link.png" onclick = "copyRoomLink()">
-        <img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.ico"> </img>
+        <img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.png"> </img>
 	<p id = "results_header" class = "header_text"> Results </p>
 
 	<div id = "card_section"> </div>
@@ -230,7 +230,7 @@
     <footer class="footer-distributed">
       <div class="footer-left">
         <span class = "title_text">Planning Poker</span>
-        <p class="footer-company-name">DellEMC &copy; 2016</p>
+        <p class="footer-company-name">Dell EMC &copy; 2016</p>
       </div>
       <div class="footer-right">
         <p class = "text footer_name"> Michael Carbone </p> <br>

@@ -15,7 +15,7 @@ window.prompt("Copy to clipboard: Ctrl+C, Enter", url);
 function showResults()
 {
 clearInterval(showPlayersInterval);
-$('#show_result_button').replaceWith('<img title = "Click to hide results" id = "hide_result_button" onclick ="hideResultsButton()" src = "../images/hide_eye_icon.ico"> </img>');
+$('#show_result_button').replaceWith('<img title = "Click to hide results" id = "hide_result_button" onclick ="hideResultsButton()" src = "../images/hide_eye_icon.png"> </img>');
 //alert("                  YAao,\n                     Y8888b,\n                   ,oA8888888b,\n             ,aaad8888888888888888bo,\n          ,d888888888888888888888888888b,\n        ,888888888888888888888888888888888b,\n       d8888888888888888888888888888888888888,\n      d888888888888888888888888888888888888888b\n     d888888P'                                        `Y888888888888,\n     88888P'                                         Ybaaaa8888888888l\n    a8888'                                               `Y8888P' `V888888\n  d8888888a                                                             `Y8888\n AY/'' `\ Y8b                                                                  ``Y8b\n Y'      `YP                                                                         ~~");
 
 
@@ -52,7 +52,7 @@ showResultsInterval = setInterval(function showResultsLoop()
       }
     }
   });
-}, 100);
+}, 300);
 };
 
 function showResultsButton()
@@ -94,7 +94,7 @@ function hideResultsButton()
 function showPlayers()
 {
 clearInterval(showResultsInterval);
-$('#hide_result_button').replaceWith('<img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.ico"> </img>');
+$('#hide_result_button').replaceWith('<img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.png"> </img>');
  
 showPlayersInterval = setInterval(function showPlayersLoop()
 {
@@ -127,7 +127,7 @@ showPlayersInterval = setInterval(function showPlayersLoop()
       }
     }
   });
-}, 100);
+}, 300);
 };
 
 function showVisualizations()
@@ -417,7 +417,7 @@ function login()
   	   $('#login_error').remove();
 
 	   $('#login_section').append("<p id = 'login_success_text' class = 'success_text'> Success! </p>");
-	   window.location.href = "index.html";
+	   window.location.href = "index.php";
 	}
 	else
 	{
