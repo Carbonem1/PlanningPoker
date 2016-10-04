@@ -239,12 +239,14 @@
   font-family: Gidole, Arial;
 }
 
-#results_header
+#results_header_section
 {
-  left: 5%;
+  width: 50%;
+  margin: auto;
 }
 
 .username_header
 {
   margin-bottom: -22px;
 }
+

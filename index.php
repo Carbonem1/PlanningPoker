@@ -43,9 +43,9 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class = "dropdown"> 
-  	      <a class = "dropdown-toggle text" data-toggle = "dropdown"> '.$_SESSION["username"].' <span class = "caret"> </span> </a>
+  	      <a href = "#" class = "dropdown-toggle text" data-toggle = "dropdown"> '.$_SESSION["username"].' <span class = "caret"> </span> </a>
 	      <ul class = "dropdown-menu">
-		<li> <a class = "dropdown-item" onclick = "logout()"> Log Out </a> </li>
+		<li> <a href = "#" class = "dropdown-item" onclick = "logout()"> Log Out </a> </li>
 	      </ul>
 	    </li>
           </ul>

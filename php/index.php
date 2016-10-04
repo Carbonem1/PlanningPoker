@@ -44,9 +44,9 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class = "dropdown"> 
-  	      <a class = "dropdown-toggle text" data-toggle = "dropdown"> '.$_SESSION["username"].' <span class = "caret"> </span> </a>
+  	      <a href = "#" class = "dropdown-toggle text" data-toggle = "dropdown"> '.$_SESSION["username"].' <span class = "caret"> </span> </a>
 	      <ul class = "dropdown-menu">
-		<li> <a class = "dropdown-item" onclick = "logout()"> Log Out </a> </li>
+		<li> <a href = "#" class = "dropdown-item" onclick = "logout()"> Log Out </a> </li>
 	      </ul>
 	    </li>
           </ul>
@@ -106,8 +106,9 @@
       <div id = "result_section">
 	<img id = "copy_room_link_button" title = "Click to copy room link" src = "../images/copy_link.png" onclick = "copyRoomLink()">
         <img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.png"> </img>
+	<div id = "results_header_section">
 	<p id = "results_header" class = "header_text"> Results </p>
-
+	</div>
 	<div id = "card_section"> </div>
       </div>
 
@@ -213,8 +214,9 @@
       <div id = "result_section">
 	<img id = "copy_room_link_button" title = "Click to copy room link" src = "../images/copy_link.png" onclick = "copyRoomLink()">
         <img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.png"> </img>
+	<div id = "results_header_section">
 	<p id = "results_header" class = "header_text"> Results </p>
-
+	</div>
 	<div id = "card_section"> </div>
       </div>
 

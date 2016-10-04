@@ -540,14 +540,21 @@ function submit()
   parent = document.getElementById("user_section");
 
   // TODO: change alert to a nicer looking message
+  // clear existing errors
+  $('#submit_card_error_text').remove();
+  $('#submit_username_error_text').remove();
+
+
   // check for a name
   if(given_name == '')
   {
+  	$('#user_section').append("<p id = 'submit_username_error_text' class = 'error_text'> Please enter a name </p>");
     return;
   }
   // check for a card
   if(selected_card == '')
   {
+	$('#user_section').append("<p id = 'submit_card_error_text' class = 'error_text'> Please select a card </p>");
     return;
   }
 
@@ -578,9 +585,12 @@ function submit()
 
 function submit_logged_in(given_name)
 {
+  
+  $('#submit_card_error_text').remove();
   // check for a card
   if(selected_card == '')
   {
+	$('#user_section').append("<p id = 'submit_card_error_text' class = 'error_text'> Please select a card </p>");
     return;
   }
 

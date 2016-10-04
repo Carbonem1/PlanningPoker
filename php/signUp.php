@@ -42,14 +42,21 @@ try
   $sql = "CREATE TABLE User_$username (
   userID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(20) NOT NULL,
-  password VARCHAR(20) NOT NULL,
+  password VARCHAR(200) NOT NULL,
   firstname VARCHAR(30),
   lastname VARCHAR(30),
   email VARCHAR(50)
   )";
   // use exec() because no results are returned
   $conn->exec($sql);
-  echo "signed_up";
+
+   // insert user account into User_$username table
+  $sql = "INSERT INTO User_$username (userID, username, password, email)
+  VALUES (default, '$username', '$password', '$email')";
+  // use exec() because no results are returned
+  $conn->exec($sql);
+
+ echo "signed_up";
 }
 catch(PDOException $e)
 {
