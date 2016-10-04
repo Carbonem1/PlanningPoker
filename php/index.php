@@ -38,13 +38,13 @@
           <a class="navbar-brand text" href="../index.php">Planning Poker</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav cl-effect-1">
             <li><a href="../index.php">Home</a></li>
             <li><a href="#">Options</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right cl-effect-1">
             <li class = "dropdown"> 
-  	      <a href = "#" class = "dropdown-toggle text" data-toggle = "dropdown"> '.$_SESSION["username"].' <span class = "caret"> </span> </a>
+  	      <a href = "#" class = "dropdown-toggle text" data-toggle = "dropdown"> '.$_SESSION["username"].'</a>
 	      <ul class = "dropdown-menu">
 		<li> <a href = "#" class = "dropdown-item" onclick = "logout()"> Log Out </a> </li>
 	      </ul>
@@ -150,11 +150,11 @@
           <a class="navbar-brand text" href="../index.php">Planning Poker</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav cl-effect-1">
             <li><a href="../index.php">Home</a></li>
             <li><a href="#">Options</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right cl-effect-1">
             <li><a href="../signup.html"><span></span> Sign Up </a></li>
             <li><a href="../login.html"><span></span> Login </a></li>
           </ul>

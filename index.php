@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS -->
-    <link rel = "stylesheet" href = "css/styles.css">
+    <link rel = "stylesheet" type = "text/css" href = "css/styles.css" />
     <!-- JavaScript -->
     <script type ="text/javascript" src = "js/javaScript.js"> </script>
     <!-- Bootstrap -->
@@ -17,6 +17,7 @@
     <script src="js/ajaxjquery.min.js"></script>
     <!-- Plotly.js -->
     <script src="js/plotly-latest.min.js"></script>
+    <link rel = "stylesheet" type = "text/css" href = "css/component.css" />
   </head>
 
   <body id = "body">
@@ -37,13 +38,13 @@
           <a class="navbar-brand text" href="#">Planning Poker</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav cl-effect-1">
             <li><a href="#">Home</a></li>
             <li><a href="#">Options</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right cl-effect-1">
             <li class = "dropdown"> 
-  	      <a href = "#" class = "dropdown-toggle text" data-toggle = "dropdown"> '.$_SESSION["username"].' <span class = "caret"> </span> </a>
+  	      <a href = "#" class = "dropdown-toggle text" data-toggle = "dropdown"> '.$_SESSION["username"].'</a>
 	      <ul class = "dropdown-menu">
 		<li> <a href = "#" class = "dropdown-item" onclick = "logout()"> Log Out </a> </li>
 	      </ul>
@@ -69,11 +70,11 @@
           <a class="navbar-brand" href="#">Planning Poker</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav cl-effect-1">
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#">Options</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right cl-effect-1">
             <li><a href="signup.html"><span></span> Sign Up </a></li>
             <li><a href="login.html"><span></span> Login </a></li>
           </ul>
@@ -86,10 +87,11 @@
       <p id = "title"> Planning Poker </p>
 
       <div id = "user_section">
-      	<button onclick = "createRoom()" id = "submit" class = "button input_text"> Create Room </button>
-	<p class = "dark_text"> OR </p>
+      	<button onclick = "createRoom()" id = "submit" class = "button input_text btn btn-1 btn-1f"> Create Room </button>
+	<p id = "or_text"> OR </p>
 	<input type = "text" id = "join_room_input" class = "input_text" placeholder = "Room ID" onkeydown = "if (event.keyCode == 13) document.getElementById('join_room_button').click()")"> </input>
-      	<button onclick = "joinRoom()" id = "join_room_button" class = "button input_text"> Join Room </button>
+	<br>
+      	<button onclick = "joinRoom()" id = "join_room_button" class = "button input_text btn btn-1 btn-1f"> Join Room </button>
 	
       </div>
 

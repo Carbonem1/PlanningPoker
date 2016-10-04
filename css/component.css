@@ -220,6 +220,8 @@
 /* Button 1e */
 .btn-1e {
 	overflow: hidden;
+	color: #000000;
+	border-color: #000000;
 }
 
 .btn-1e:after {
@@ -237,7 +239,7 @@
 
 .btn-1e:hover,
 .btn-1e:active {
-	color: #0e83cd;
+	color: #ffffff;
 }
 
 .btn-1e:hover:after {
@@ -253,6 +255,9 @@
 /* Button 1f */
 .btn-1f {
 	overflow: hidden;
+	color: #ffffff;
+	border-color: #000000;
+	width: 300px;
 }
 
 .btn-1f:after {
@@ -270,7 +275,7 @@
 
 .btn-1f:hover,
 .btn-1f:active {
-	color: #0e83cd;
+	color: #000000;
 }
 
 .btn-1f:hover:after {
