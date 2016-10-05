@@ -18,6 +18,7 @@
   <script src="../js/ajaxjquery.min.js"></script>
   <!-- Plotly.js -->
   <script src="../js/plotly-latest.min.js"></script>
+  <link rel = "stylesheet" href = "../css/component.css">
 </head>
 
   <body id = "body" onload = "showPlayers()">
@@ -100,7 +101,7 @@
           <p class = "text"> 89 </p>
         </span>
         <br>
-        <button id = "submit" class = "button input_text" onclick = "submit_logged_in(\''.$_SESSION["username"].'\')"> Submit </button>
+        <button id = "submit" class = "button input_text btn btn-1 btn-1f" onclick = "submit_logged_in(\''.$_SESSION["username"].'\')"> Submit </button>
       </div>
 
       <div id = "result_section">
@@ -208,7 +209,7 @@
           <p class = "text"> 89 </p>
         </span>
         <br>
-        <button id = "submit" class = "button input_text" onclick = "submit()"> Submit </button>
+        <button id = "submit" class = "button input_text btn btn-1 btn-1f" onclick = "submit()"> Submit </button>
       </div>
 
       <div id = "result_section">

@@ -255,9 +255,16 @@
 /* Button 1f */
 .btn-1f {
 	overflow: hidden;
-	color: #ffffff;
-	border-color: #000000;
+	color: #bfbfbf;
+	border-color: #bfbfbf;
+	background-color: #262626;
 	width: 300px;
+}
+
+.btn-1f:focus
+{
+	color: #bfbfbf;
+	outline: 0;
 }
 
 .btn-1f:after {
@@ -275,7 +282,7 @@
 
 .btn-1f:hover,
 .btn-1f:active {
-	color: #000000;
+	color: #ffffff;
 }
 
 .btn-1f:hover:after {

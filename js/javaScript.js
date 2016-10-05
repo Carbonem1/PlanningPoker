@@ -526,7 +526,41 @@ function createRoom()
 function joinRoom()
 {
   roomID = $('#join_room_input').val();
-  window.location.href = "/php/index.php?roomID=" + roomID;
+  if (joinRoomFormValidation(roomID))
+  {
+  	// clear existing errors
+  	$('#joinRoom_roomID_error').remove();
+
+  	window.location.href = "/php/index.php?roomID=" + roomID;
+  }
+  else
+  {
+
+  }
+};
+
+function joinRoomFormValidation(roomID)
+{
+  var valid = true;
+  if (!validateRoomID(roomID))
+  {
+    valid = false;
+  }
+  return valid;
+};
+
+function validateRoomID(roomID)
+{
+  // clear existing errors
+  $('#joinRoom_roomID_error').remove();
+
+  roomID_length = roomID.length;
+  if (roomID_length == 0)
+  {
+    $('#user_section').append("<p id = 'joinRoom_roomID_error' class = 'error_text'> Room ID can not be empty </p>");
+    return false;
+  }
+  return true; 
 };
 
 function submit()
