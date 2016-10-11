@@ -22,16 +22,68 @@
   margin-top: 40px;
 }
 
+.section
+{
+  -webkit-animation: fadein 2s;
+  -moz-animation: fadein 2s;
+  -ms-animation: fadein 2s;
+  -o-animation: fadein 2s;
+  animation: fadein 2s;
+}
+
+@keyframes fadein
+{
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@-moz-keyframes fadein
+{
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@-webkit-keyframes fadein
+{
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@-ms-keyframes fadein
+{
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@-o-keyframes fadein
+{
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 #join_room_input
 {
-  width: 300px;
+  width: 295px;
 }
 
 #or_text
 {
-  color: black;
+  color: #000000;
   font-size: 20px;
   font-family: Gidole, Arial;
+  border-bottom: 1px solid #000;
+  line-height: 0.1em; 
+}
+
+#or_text span
+{
+  background: #bfbfbf;
+}
+
+#or_text_section
+{
+  width: 300px;
+  padding: 10px;
 }
 
 #signup_section
@@ -42,6 +94,9 @@
   background-color: #bfbfbf;
   opacity: 1;
   border-radius: 5px;
+  border-style: double;
+  border-color: #000000;
+  border-width: 12px;
 }
 
 .signup_input
@@ -60,6 +115,9 @@
   background-color: #bfbfbf;
   opacity: 1;
   border-radius: 5px;
+  border-style: double;
+  border-color: #000000;
+  border-width: 12px;
 }
 
 .login_input
@@ -85,8 +143,10 @@
   margin: 50px;
   padding-bottom: 10px;
   background-color: #bfbfbf;
-  opacity: 1;
   border-radius: 5px;
+  border-style: double;
+  border-color: #000000;
+  border-width: 12px;
 }
 
 #name_input
@@ -138,6 +198,9 @@
   background-color: #bfbfbf;
   opacity: 1;
   border-radius: 5px;
+  border-style: double;
+  border-color: #000000;
+  border-width: 12px;
 }
 
 .result_entry
@@ -182,6 +245,9 @@
   background-color: #bfbfbf;
   opacity: 1;
   border-radius: 5px;
+  border-style: double;
+  border-color: #000000;
+  border-width: 12px;
 }
 
 #box_plot
@@ -229,6 +295,61 @@
   font-family: Gidole, Arial;
 }
 
+.footer_text
+{
+  color: white;
+  font-size: 25px;
+  font-family: Gidole, Arial;
+  padding: 10px;
+}
+
+.card_text
+{
+  color: #ffffff;
+  font-size: 25px;
+  font-family: Gidole, Arial;
+}
+
+.card:hover .card_text
+{
+  -webkit-animation: fadecolor .8s;
+  -moz-animation: fadecolor .8s;
+  -ms-animation: fadecolor .8s;
+  -o-animation: fadecolor .8s;
+  animation: fadecolor .8s;
+  color: white;
+}
+
+@keyframes fadecolor
+{
+  from { color: #bfbfbf; }
+  to   { color: #ffffff; }
+}
+
+@-moz-keyframes fadecolor
+{
+  from { color: #bfbfbf; }
+  to   { color: #ffffff; }
+}
+
+@-webkit-keyframes fadecolor
+{
+  from { color: #bfbfbf; }
+  to   { color: #ffffff; }
+}
+
+@-ms-keyframes fadecolor
+{
+  from { color: #bfbfbf; }
+  to   { color: #ffffff; }
+}
+
+@-o-keyframes fadecolor
+{
+  from { color: #bfbfbf; }
+  to   { color: #ffffff; }
+}
+
 .statistics_text
 {
   color: black;
@@ -266,6 +387,14 @@
 .username_header
 {
   margin-bottom: -22px;
+}
+
+.footer
+{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 90px;
 }
 
 /* Effect 1: Brackets */

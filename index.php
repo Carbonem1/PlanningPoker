@@ -21,92 +21,26 @@
   </head>
 
   <body id = "body">
-<?php
-    session_start();
-    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)
-    {
-    echo '
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand text" href="#">Planning Poker</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav cl-effect-1">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Options</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right cl-effect-1">
-            <li class = "dropdown"> 
-  	      <a href = "#" class = "dropdown-toggle text" data-toggle = "dropdown"> '.$_SESSION["username"].'</a>
-	      <ul class = "dropdown-menu">
-		<li> <a href = "#" class = "dropdown-item" onclick = "logout()"> Log Out </a> </li>
-	      </ul>
-	    </li>
-          </ul>
-        </div>
-      </div>
-    </nav>';
-    }
-    else
-    {
-    echo'
-    <!-- Bootstrap Header -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Planning Poker</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav cl-effect-1">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Options</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right cl-effect-1">
-            <li><a href="signup.html"><span></span> Sign Up </a></li>
-            <li><a href="login.html"><span></span> Login </a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>';
-    }
-?>
-    <center>
-      <p id = "title"> Planning Poker </p>
+  <!-- Header -->
+  <?php include('php/header.php'); ?>
 
-      <div id = "user_section">
-      	<button onclick = "createRoom()" id = "submit" class = "button input_text btn btn-1 btn-1f"> Create Room </button>
-	<p id = "or_text"> OR </p>
-	<input type = "text" id = "join_room_input" class = "input_text" placeholder = "Room ID" onkeydown = "if (event.keyCode == 13) document.getElementById('join_room_button').click()")"> </input>
-	<br>
-      	<button onclick = "joinRoom()" id = "join_room_button" class = "button input_text btn btn-1 btn-1f"> Join Room </button>
-	
+  <!-- Content -->
+  <center>
+    <p id = "title"> Planning Poker </p>
+    
+    <div id = "user_section" class = "section">
+      <button onclick = "createRoom()" id = "submit" class = "button input_text btn btn-1 btn-1f"> Create Room </button>
+      <div id = "or_text_section">
+        <p id = "or_text"> <span> OR </span> </p>
       </div>
+      <input type = "text" id = "join_room_input" class = "input_text" placeholder = "Room ID" onkeydown = "if (event.keyCode == 13) document.getElementById('join_room_button').click()"> </input>
+      <br>
+      <button onclick = "joinRoom()" id = "join_room_button" class = "button input_text btn btn-1 btn-1f"> Join Room </button>	
+    </div>
+  </center>
 
-    <!-- Bootstrap footer -->
-    <footer class="footer-distributed bottom">
-      <div class="footer-left">
-        <span class = "title_text">Planning Poker</span>
-        <p class="footer-company-name">Dell EMC &copy; 2016</p>
-      </div>
-      <div class="footer-right">
-        <p class = "text footer_name"> Michael Carbone </p> <br>
-        <p class="footer-company-name"> Michael.Carbone@emc.com </p>
-        </div>
-      </div>
-    </footer>
-
+  <!-- Footer -->
+  <?php include('php/footer.php'); ?>
+      
   </body>
 </html>
