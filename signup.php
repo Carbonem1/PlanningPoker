@@ -34,7 +34,7 @@
             <input id = "email_input" class = "signup_input input_text" type="text" name = "email" placeholder = "Email"> <br>
 	    </div>
 	    <div id = signup_username_section>
-            <input id = "username_input" class = "signup_input input_text" type="text" name = "username" placeholder = "Username"> <br>
+            <input id = "username_input" class = "signup_input input_text" type="text" name = "username" placeholder = "Username (display name)"> <br>
 	    </div>
 	    <div id = signup_password_section>
             <input id = "password_input" class = "signup_input input_text" type="password" name = "password" placeholder = "Password"> <br>

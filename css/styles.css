@@ -212,6 +212,14 @@
   border-radius: 5px;
 }
 
+#clear_results_button
+{
+  float: left;
+  margin: 10px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
 #show_result_button
 {
   float: right;

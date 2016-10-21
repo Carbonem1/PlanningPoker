@@ -2,8 +2,11 @@ var selected_card = "";
 var estimates = new Array();
 var mean;
 var showPlayersInterval;
+var showPlayersIntervalBool = false;
 var showResultsInterval;
+var showResultsIntervalBool = false;
 var same_result_bool;
+var dolphin_flag = true;
 
 function copyRoomLink()
 {
@@ -14,12 +17,14 @@ window.prompt("Copy to clipboard: Ctrl+C, Enter", url);
 function showResults()
 {
 clearInterval(showPlayersInterval);
-$('#show_result_button').replaceWith('<img title = "Click to hide results" id = "hide_result_button" onclick ="hideResultsButton()" src = "../images/hide_eye_icon.png"> </img>');
-//alert("                  YAao,\n                     Y8888b,\n                   ,oA8888888b,\n             ,aaad8888888888888888bo,\n          ,d888888888888888888888888888b,\n        ,888888888888888888888888888888888b,\n       d8888888888888888888888888888888888888,\n      d888888888888888888888888888888888888888b\n     d888888P'                                        `Y888888888888,\n     88888P'                                         Ybaaaa8888888888l\n    a8888'                                               `Y8888P' `V888888\n  d8888888a                                                             `Y8888\n AY/'' `\ Y8b                                                                  ``Y8b\n Y'      `YP                                                                         ~~");
+showPlayersInervalBool = false;
 
+$('#show_result_button').replaceWith('<img title = "Click to hide results" id = "hide_result_button" onclick ="hideResultsButton()" src = "../images/hide_eye_icon.png"> </img>');
 
 showResultsInterval = setInterval(function showResultsLoop()
 {
+  showResultsIntervalBool = true;
+
   url = window.location.href;
   params = url.split('?');
   params = url.split('=');
@@ -93,10 +98,15 @@ function hideResultsButton()
 function showPlayers()
 {
 clearInterval(showResultsInterval);
+showResultsIntervalBool = false;
 $('#hide_result_button').replaceWith('<img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.png"> </img>');
+// reset dolphin flag, show dolphin if we get a new consensus
+dolphin_flag = true;
  
 showPlayersInterval = setInterval(function showPlayersLoop()
 {
+  showPlayersIntervalBool = true;  
+
   url = window.location.href;
   params = url.split('?');
   params = url.split('=');
@@ -129,6 +139,25 @@ showPlayersInterval = setInterval(function showPlayersLoop()
 }, 300);
 };
 
+function clearResults()
+{
+  url = window.location.href;
+  params = url.split('?');
+  params = url.split('=');
+
+  room_id = params[1];
+
+  $.ajax
+  ({
+    data: {'room_id': room_id},
+    url: '/php/clearResults.php',
+    method: 'POST', // or GET
+    success: function(msg)
+    {
+    }
+  }); 
+};
+
 function showVisualizations()
 {
   url = window.location.href;
@@ -145,8 +174,16 @@ function showVisualizations()
     {
 	estimates = msg;
 	estimates = estimates.replace(/,\s*$/, "");
-	data = estimates.split(',');
+	data = estimates.split(', ');
         same_result_bool = data.allValuesSame();
+	if(same_result_bool === true && data.length >= 2 && dolphin_flag === true)
+	{
+	  alert("Great minds think alike!\n\n                  YAao,\n                     Y8888b,\n                   ,oA8888888b,\n             ,aaad8888888888888888bo,\n          ,d888888888888888888888888888b,\n        ,888888888888888888888888888888888b,\n       d8888888888888888888888888888888888888,\n      d888888888888888888888888888888888888888b\n     d888888P'                                        `Y888888888888,\n     88888P'                                         Ybaaaa8888888888l\n    a8888'                                               `Y8888P' `V888888\n  d8888888a                                                             `Y8888\n AY/'' `\ Y8b                                                                  ``Y8b\n Y'      `YP                                                                         ~~");
+	  dolphin_flag = false;
+	  console.log(dolphin_flag);
+	}
+
+
 
   var trace1 = {
     x: data,
@@ -420,7 +457,8 @@ function login()
   	   $('#login_error').remove();
 
 	   $('#login_section').append("<p id = 'login_success_text' class = 'success_text'> Success! </p>");
-	   window.location.href = "index.php";
+	   window.location.href = document.referrer;
+
 	}
 	else
 	{
@@ -644,7 +682,6 @@ function submit_logged_in(given_name)
   });
 };
 
-
 function selectCard(card)
 {
   // get the clicked card's ID
@@ -664,7 +701,7 @@ function selectCard(card)
   card10 = document.getElementById("card10");
   card11 = document.getElementById("card11");
 
-  // reset all card's colors
+  // reset all card's styles
   //card0.style.backgroundColor = "#262626";
   card1.style.backgroundColor = "#262626";
   card2.style.backgroundColor = "#262626";
@@ -679,18 +716,33 @@ function selectCard(card)
   card10.style.backgroundColor ="#262626";
   card11.style.backgroundColor ="#262626";
 
+  card1.style.boxShadow = "0 0 0 0 #ffffff";
+  card2.style.boxShadow = "0 0 0 0 #ffffff";
+  card3.style.boxShadow = "0 0 0 0 #ffffff";
+  card4.style.boxShadow = "0 0 0 0 #ffffff";
+  card5.style.boxShadow = "0 0 0 0 #ffffff";
+  card6.style.boxShadow = "0 0 0 0 #ffffff";
+  card7.style.boxShadow = "0 0 0 0 #ffffff";
+  card8.style.boxShadow = "0 0 0 0 #ffffff";
+  card9.style.boxShadow = "0 0 0 0 #ffffff";
+  card10.style.boxShadow = "0 0 0 0 #ffffff";
+  card11.style.boxShadow = "0 0 0 0 #ffffff";
+
   // set the clicked card's color
   current_card.style.backgroundColor = "black";
+  current_card.style.boxShadow = "0 0 0 2pt #ffffff";
   selected_card = current_card.getAttribute("name");
 };
 
+
 // function to check if all values of an array are equal
 Array.prototype.allValuesSame = function() {
-
-    for(var i = 1; i < this.length; i++)
+    for(var i = 0; i < this.length-1; i++)
     {
-        if(this[i] !== this[0])
+        if(this[i] !== this[i+1])
+	{
             return false;
+	}
     }
 
     return true;

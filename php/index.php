@@ -78,6 +78,7 @@
       </div>
 
       <div id = "result_section">
+	<img id = "clear_results_button" title = "Click to clear results" src = "../images/clear_results.png" onclick = "clearResults()">
 	<img id = "copy_room_link_button" title = "Click to copy room link" src = "../images/copy_link.png" onclick = "copyRoomLink()">
         <img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.png"> </img>
 	<div id = "results_header_section">
@@ -152,6 +153,7 @@
       </div>
 
       <div id = "result_section">
+	<img id = "clear_results_button" title = "Click to clear results" src = "../images/clear_results.png" onclick = "clearResults()">
 	<img id = "copy_room_link_button" title = "Click to copy room link" src = "../images/copy_link.png" onclick = "copyRoomLink()">
         <img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.png"> </img>
 	<div id = "results_header_section">
