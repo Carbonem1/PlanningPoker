@@ -20,7 +20,7 @@
     <link rel = "stylesheet" type = "text/css" href = "css/component.css" />
   </head>
 
-  <body id = "body">
+  <body id = "body" onload = "cookieLogin();">
   <!-- Header -->
   <?php include('php/header.php'); ?>
 

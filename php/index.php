@@ -21,7 +21,7 @@
   <link rel = "stylesheet" href = "../css/component.css">
 </head>
 
-  <body id = "body" onload = "showPlayers()">
+  <body id = "body" onload = "cookieLogin(); showPlayers();">
     <?php
     include('header.php');
     session_start();
@@ -37,9 +37,9 @@
 	</span>
 	<br>
 
-        <!-- <span id = "card0" name = "?" tabindex="1" class = "card" onclick= "selectCard(this.id)"> 
+        <span id = "card0" name = "?" tabindex="1" class = "card" onclick= "selectCard(this.id)"> 
           <p class = "card_text"> ? </p>
-        </span> -->
+        </span>
         <span id = "card1" name = "0"  tabindex="1" class = "card" onclick= "selectCard(this.id)">
           <p class = "card_text"> 0 </p>
         </span>
@@ -112,9 +112,9 @@
 	</span>
 	<br>
 
-        <!-- <span id = "card0" name = "?" tabindex="1" class = "card" onclick= "selectCard(this.id)"> 
+        <span id = "card0" name = "?" tabindex="1" class = "card" onclick= "selectCard(this.id)"> 
           <p class = "card_text"> ? </p>
-        </span> -->
+        </span>
         <span id = "card1" name = "0"  tabindex="1" class = "card" onclick= "selectCard(this.id)">
           <p class = "card_text"> 0 </p>
         </span>

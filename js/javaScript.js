@@ -175,6 +175,16 @@ function showVisualizations()
 	estimates = msg;
 	estimates = estimates.replace(/,\s*$/, "");
 	data = estimates.split(', ');
+
+	// take '?' out of data
+	for(i = 0; i < data.length; i++)
+	{
+		if(data[i] == '?')
+		{
+			data.splice(i, 1);
+		}
+	}
+
         same_result_bool = data.allValuesSame();
 	if(same_result_bool === true && data.length >= 2 && dolphin_flag === true)
 	{
@@ -435,6 +445,33 @@ function validateSignUpConfirmPassword(password, confirm_password)
   return true;
 };
 
+function cookieLogin()
+{
+  if(getCookie("username") != "")
+  {
+  $.ajax
+  ({
+    data: {'username': getCookie("username"), "password": getCookie("password")},
+    url: '/php/cookieLogIn.php',
+    method: 'GET',
+    success: function(msg)
+    {
+	if(msg == "logged_in")
+	{	   
+	  location.reload();
+	}
+	else
+	{
+	}
+    }
+  });
+  }
+  else
+  {
+    return;
+  }
+};
+
 /* ---------- Login ---------- */
 function login()
 {  
@@ -457,6 +494,11 @@ function login()
   	   $('#login_error').remove();
 
 	   $('#login_section').append("<p id = 'login_success_text' class = 'success_text'> Success! </p>");
+	  
+	   // set cookies
+	   setCookie("username", username, 364);
+	   setCookie("password", password, 364);
+
 	   window.location.href = document.referrer;
 
 	}
@@ -485,6 +527,43 @@ function loginAfterSignUp(username, password)
     success: function(msg)
     {
 	   window.location.href = "index.php";
+    }
+  });
+  }
+};
+
+function adLogin()
+{  
+  username = document.getElementById('login_username_input').value;
+  password = document.getElementById('login_password_input').value;
+
+  if (loginFormValidation(username, password))
+  { 
+  $.ajax
+  ({
+    data: {'username': username, "password": password},
+    url: '/php/adLogIn.php',
+    method: 'GET',
+    success: function(msg)
+    {
+	if(msg == "logged_in")
+	{	   
+	   // clear existing errors
+  	   $('#login_success_text').remove();
+  	   $('#login_error').remove();
+
+	   $('#login_section').append("<p id = 'login_success_text' class = 'success_text'> Success! </p>");
+	   window.location.href = document.referrer;
+
+	}
+	else
+	{
+	   // clear existing errors
+  	   $('#login_success_text').remove();
+  	   $('#login_error').remove();
+
+	   $('#login_section').append("<p id = 'login_error' class = 'error_text'> Invalid username password combination </p>");
+	}
     }
   });
   }
@@ -542,6 +621,8 @@ function logout()
     method: 'POST', // or GET
     success: function(msg)
     {
+	deleteCookie("username");
+	deleteCookie("password");
 	location.reload();
     }
   });
@@ -638,7 +719,6 @@ function submit()
   paragraph.appendChild(name_input);
   $("#name_input").replaceWith(paragraph);
 	  
-
   url = window.location.href;
   params = url.split('?');
   params = url.split('=');
@@ -688,7 +768,7 @@ function selectCard(card)
   current_card = document.getElementById(card);
 
   // get all card's IDs
-  //card0 = document.getElementById("card0");
+  card0 = document.getElementById("card0");
   card1 = document.getElementById("card1");
   card2 = document.getElementById("card2");
   card3 = document.getElementById("card3");
@@ -702,7 +782,7 @@ function selectCard(card)
   card11 = document.getElementById("card11");
 
   // reset all card's styles
-  //card0.style.backgroundColor = "#262626";
+  card0.style.backgroundColor = "#262626";
   card1.style.backgroundColor = "#262626";
   card2.style.backgroundColor = "#262626";
   card3.style.backgroundColor = "#262626";
@@ -716,6 +796,7 @@ function selectCard(card)
   card10.style.backgroundColor ="#262626";
   card11.style.backgroundColor ="#262626";
 
+  card0.style.boxShadow = "0 0 0 0 #ffffff";
   card1.style.boxShadow = "0 0 0 0 #ffffff";
   card2.style.boxShadow = "0 0 0 0 #ffffff";
   card3.style.boxShadow = "0 0 0 0 #ffffff";
@@ -746,5 +827,36 @@ Array.prototype.allValuesSame = function() {
     }
 
     return true;
-}
+};
 
+function setCookie(cname, cvalue, exdays)
+{
+	var d = new Date();
+	d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	var expires = "expires=" + d.toUTCString();
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+};
+
+function getCookie(cname)
+{
+	var name = cname + "=";
+	var ca = document.cookie.split(';');
+	for(var i = 0; i < ca.length; i++)
+	{
+		var c = ca[i];
+		while(c.charAt(0)==' ')
+		{
+			c = c.substring(1);
+		}
+		if(c.indexOf(name) == 0)
+		{
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
+};
+
+function deleteCookie(name)
+{
+	setCookie(name, "", -1);
+}

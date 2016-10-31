@@ -9,6 +9,12 @@ try {
 	$username = $_POST['username'];
 	$card = $_POST['card'];
 
+	// if card is a '?', format to fit into SQL insert
+	if($card === "?")
+	{
+		$card = "'?'";
+	}
+
 	$room_instance_table = "RoomInstance".$roomID;
     	$conn = new PDO("mysql:host=$servername;dbname=$database", $db_username, $db_password);
     	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

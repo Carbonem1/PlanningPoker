@@ -35,7 +35,9 @@
 	    <div id = "login_password_section">
             <input id = "login_password_input" class = "login_input input_text" type="password" name = "password" placeholder = "Password"> <br>
 	    </div>
-            <button id = "submit" class = "button input_text btn btn-1 btn-1f" onclick = "login()"> Log In </button>
+            <button id = "submit" class = "btn btn-1 btn-1f" onclick = "login()"> Log In </button>
+	    <!-- <button id = "submit" class = "btn btn-1 btn-1f" onclick = "adLogin()"> Log In With AD </button> -->
+
           </div>
       </div>
     </center>
