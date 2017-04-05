@@ -35,7 +35,7 @@ try {
 		echo '<span class = result_entry>';
 		echo 	'<p class = "username_text"> '.$username.' </p>';
 		echo 	'<span id = "'.$username.'_card" class = "result_card" name = "'.$card.'"  tabindex="1">';
-          	echo 		'<p class = "text"> '.$card.' </p>';
+          	echo 		'<p class = "text"> ?  </p>';
         	echo 	'</span>';
 		echo '</span>';
     	}
@@ -46,7 +46,6 @@ try {
         	$showResults = $row['showResults'];
 		echo $showResults;
     	}
-
 }
 catch(PDOException $e) {
     	echo "Error: " . $e->getMessage();

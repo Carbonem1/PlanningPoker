@@ -8,6 +8,12 @@ $database = "PlanningPokerDB";
 
 try
 {
+  if ($_SESSION['cookie_login_flag'] == false && isset($_SESSION['cookie_login_flag']))
+  {
+    echo "cookie_login_flag: " . $_SESSION['cookie_login_flag'];
+    return;
+  }
+
   $given_username = $_GET['username'];
   $given_password =  $_GET['password'];
 
@@ -29,8 +35,8 @@ try
 	{
 	  $_SESSION['logged_in'] = true;
 	  $_SESSION['username'] = $given_username;
-	  $_SESSION['cookie_login_flag'] = false;
 	  echo "logged_in";
+          $_SESSION['cookie_login_flag'] = false;
  	}
 	else
         {

@@ -1,6 +1,8 @@
 <?php
 
 $roomID = $_POST['last_id'];
+$estimates = array();
+
 $servername = "localhost";
 $db_username = "root";
 $db_password = "PlanningPoker2016!";
@@ -32,21 +34,12 @@ try {
 	foreach ($conn->query($sql) as $row) {
         	$username = $row['username'];
         	$card = $row['card'];
-		echo '<span class = result_entry>';
-		echo 	'<p class = "username_text"> '.$username.' </p>';
-		echo 	'<span id = "'.$username.'_card" class = "result_card" name = "'.$card.'"  tabindex="1">';
-          	echo 		'<p class = "text"> '.$card.' </p>';
-        	echo 	'</span>';
-		echo '</span>';
+		$estimates[] = $card;
     	}
-    	$conn = new PDO("mysql:host=$servername;dbname=$database", $db_username, $db_password);
-    	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    	$sql = ("SELECT roomID, showResults FROM Rooms WHERE roomID = $roomID"); 
-	foreach ($conn->query($sql) as $row) {
-        	$showResults = $row['showResults'];
-		echo $showResults;
-    	}
-
+	foreach($estimates as $value)
+	{
+		echo $value.", ";
+	}
 }
 catch(PDOException $e) {
     	echo "Error: " . $e->getMessage();

@@ -23,30 +23,7 @@
 
   <body id = "body">
     <!-- Bootstrap Header -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.php">Planning Poker</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav cl-effect-1">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="#">Options</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right cl-effect-1">
-            <li class="active"><a href="signup.html"><span></span> Sign Up </a></li>
-            <li><a href="login.html"><span></span> Login </a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
+    <?php include('php/header.php'); ?>
     <center>
       <p id = "title"> Planning Poker </p>
 
@@ -56,7 +33,7 @@
             <input id = "email_input" class = "signup_input input_text" type="text" name = "email" placeholder = "Email"> <br>
 	    </div>
 	    <div id = signup_username_section>
-            <input id = "username_input" class = "signup_input input_text" type="text" name = "username" placeholder = "Username"> <br>
+            <input id = "username_input" class = "signup_input input_text" type="text" name = "username" placeholder = "Username (display name)"> <br>
 	    </div>
 	    <div id = signup_password_section>
             <input id = "password_input" class = "signup_input input_text" type="password" name = "password" placeholder = "Password"> <br>
@@ -64,23 +41,13 @@
   	    <div id = signup_confirm_password_section>
             <input id = "confirm_password_input" class = "signup_input input_text" type="password" name = "confirm_password" placeholder = "Confirm Password"> <br>
 	    </div>
-            <button id = "submit" class = "button input_text" onclick = "signUp()"> Sign Up </button>
+            <button id = "submit" class = "btn-1f" onclick = "signUp()"> Sign Up </button>
           </div>
       </div>
     </center>
 
     <!-- Bootstrap footer -->
-    <footer class="footer-distributed">
-      <div class="footer-left">
-        <span class = "title_text">Planning Poker</span>
-        <p class="footer-company-name">Dell EMC &copy; 2016</p>
-      </div>
-      <div class="footer-right">
-        <p class = "text footer_name"> Michael Carbone </p> <br>
-        <p class="footer-company-name"> Michael.Carbone@emc.com </p>
-        </div>
-      </div>
-    </footer>
+    <?php include('php/footer.php'); ?>
   </body>
 </html>
 
