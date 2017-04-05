@@ -7,22 +7,85 @@ var showResultsInterval;
 var showResultsIntervalBool = false;
 var same_result_bool;
 var dolphin_flag = true;
+var clear_timer = 60
 
 function copyRoomLink()
-{
-url = window.location.href;
-window.prompt("Copy to clipboard: Ctrl+C, Enter", url);
+{  
+
+  url = window.location.href;
+
+  // create an element to copy the URL from
+  var textArea = document.createElement("textarea");
+  textArea.style.position = 'fixed';
+  textArea.style.top = 0;
+  textArea.style.left = 0;
+  textArea.style.width = '2em';
+  textArea.style.height = '2em';
+  textArea.style.padding = 0;
+  textArea.style.border = 'none';
+  textArea.style.outline = 'none';
+  textArea.style.boxShadow = 'none';
+  textArea.style.background = 'transparent';
+  textArea.value = url;
+  document.body.appendChild(textArea);
+  textArea.select();
+
+  try {
+    var successful = document.execCommand('copy');
+    var msg = successful ? 'successful' : 'unsuccessful';
+    console.log('Copying text command was ' + msg);
+    $(".copy_room_link_button").toggleClass("button_transition");
+    setTimeout(changeCopyRoomLinkButtonColor, 200);
+
+
+  } catch (err) {
+    console.log('Oops, unable to copy');
+  }
+
+  document.body.removeChild(textArea);
 };
+
+function changeCopyRoomLinkButtonColor()
+{
+  $(".copy_room_link_button").toggleClass("button_transition");
+};
+
 
 function showResults()
 {
 clearInterval(showPlayersInterval);
-showPlayersInervalBool = false;
+showPlayersIntervalBool = false;
 
-$('#show_result_button').replaceWith('<img title = "Click to hide results" id = "hide_result_button" onclick ="hideResultsButton()" src = "../images/hide_eye_icon.png"> </img>');
+$('html, body').animate({
+        scrollTop: $("#result_section").offset().top-100
+    }, 2000);
 
-showResultsInterval = setInterval(function showResultsLoop()
+$('#show_result_button').replaceWith('<img title = "Click to hide results" id = "hide_result_button" onclick ="hideResultsButton()" src = "../images/hide_eye_icon1.png"> </img>');
+
+if(!showResultsIntervalBool)
 {
+  showClearResultsTimerInterval = setInterval(showClearResultsTimer, 1000);
+  showResultsInterval = setInterval(showResultsLoop, 2000);
+}
+};
+
+function showClearResultsTimer()
+{
+  $('#clear_results_timer_text').remove();
+  $('#result_section').append('<p id = "clear_results_timer_text" class = "timer_text"> ' + clear_timer + ' </p>'); 
+  clear_timer -= 1;
+  if (clear_timer < 0)
+  {
+    $('#clear_results_timer_text').remove();
+    clearInterval(showClearResultsTimerInterval);
+    clear_timer = 60;
+    clearResults();
+  }
+};
+
+function showResultsLoop()
+{
+  console.log("SHOW RESULTS LOOP START");
   showResultsIntervalBool = true;
 
   url = window.location.href;
@@ -48,6 +111,10 @@ showResultsInterval = setInterval(function showResultsLoop()
       }
       else if (showResultsBool == "0")
       {
+        $('#clear_results_timer_text').remove();
+        clearInterval(showClearResultsTimerInterval);
+        clear_timer = 60;
+
 	showPlayers();
       }
       else
@@ -56,7 +123,6 @@ showResultsInterval = setInterval(function showResultsLoop()
       }
     }
   });
-}, 300);
 };
 
 function showResultsButton()
@@ -99,12 +165,24 @@ function showPlayers()
 {
 clearInterval(showResultsInterval);
 showResultsIntervalBool = false;
-$('#hide_result_button').replaceWith('<img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.png"> </img>');
+
+$('#hide_result_button').replaceWith('<img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon1.png"> </img>');
 // reset dolphin flag, show dolphin if we get a new consensus
 dolphin_flag = true;
- 
-showPlayersInterval = setInterval(function showPlayersLoop()
+// clear Statistics section
+  	$('#mean').remove();
+  	$('#reestimate_text').remove();
+	Plotly.purge(box_plot);
+	Plotly.purge(hist_plot);
+if(!showPlayersIntervalBool)
 {
+showPlayersInterval = setInterval(showPlayersLoop, 300);
+}
+};
+
+function showPlayersLoop()
+{
+  console.log("SHOW PLAYERS LOOP START");
   showPlayersIntervalBool = true;  
 
   url = window.location.href;
@@ -125,7 +203,7 @@ showPlayersInterval = setInterval(function showPlayersLoop()
       {
       $('#card_section').empty();
       $('#card_section').append(msg);
-     }
+      }
       else if (showResultsBool == "1")
       {
 	showResults();
@@ -136,11 +214,11 @@ showPlayersInterval = setInterval(function showPlayersLoop()
       }
     }
   });
-}, 300);
 };
 
+
 function clearResults()
-{
+{ 
   url = window.location.href;
   params = url.split('?');
   params = url.split('=');
@@ -154,8 +232,33 @@ function clearResults()
     method: 'POST', // or GET
     success: function(msg)
     {
+	console.log(msg);
+        $(".clear_results_button").toggleClass("button_transition");
+        setTimeout(changeClearResultsButtonColor, 200);
+
+	if(msg == "success")
+	{
+
+	  $('#reestimate_text').remove();
+
+          $('#clear_results_timer_text').remove();
+          clearInterval(showClearResultsTimerInterval);
+          clear_timer = 60;
+
+	  clearInterval(showResultsInterval);
+	  clearInterval(showPlayersInterval);
+	  showPlayers();
+	}
+	else
+	{
+	}
     }
   }); 
+};
+
+function changeClearResultsButtonColor()
+{
+  $(".clear_results_button").toggleClass("button_transition");
 };
 
 function showVisualizations()
@@ -174,14 +277,15 @@ function showVisualizations()
     {
 	estimates = msg;
 	estimates = estimates.replace(/,\s*$/, "");
-	data = estimates.split(', ');
+	temp_data = estimates.split(', ');
 
+	data = [];
 	// take '?' out of data
-	for(i = 0; i < data.length; i++)
+	for(i = 0; i < temp_data.length; i++)
 	{
-		if(data[i] == '?')
+		if(!(temp_data[i] == '?'))
 		{
-			data.splice(i, 1);
+			data.push(temp_data[i]);
 		}
 	}
 
@@ -190,7 +294,6 @@ function showVisualizations()
 	{
 	  alert("Great minds think alike!\n\n                  YAao,\n                     Y8888b,\n                   ,oA8888888b,\n             ,aaad8888888888888888bo,\n          ,d888888888888888888888888888b,\n        ,888888888888888888888888888888888b,\n       d8888888888888888888888888888888888888,\n      d888888888888888888888888888888888888888b\n     d888888P'                                        `Y888888888888,\n     88888P'                                         Ybaaaa8888888888l\n    a8888'                                               `Y8888P' `V888888\n  d8888888a                                                             `Y8888\n AY/'' `\ Y8b                                                                  ``Y8b\n Y'      `YP                                                                         ~~");
 	  dolphin_flag = false;
-	  console.log(dolphin_flag);
 	}
 
 
@@ -311,11 +414,232 @@ function showVisualizations()
     total += data[i] << 0;
   }
   mean = (total/data.length).toFixed(2);
-  $('#mean').remove()
-  $('#statistics_header_section').append('<p id = "mean" class = "statistics_text"> Mean: '+mean+' </p>');
+  mean = Math.round(mean);
+  $('#mean').remove();
+  $('#statistics_header_section').append('<p id = "mean" class = "statistics_text"> Average: '+mean+' </p>');
+  if (data.length >= 2)
+  {
+    card_array = [0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89];
+    var first_index;
+    var second_index;
+    var reestimate_flag = false;
+    // first number to compare
+    for (var i = 0; i < data.length - 1; i++)
+        {
+  	  // find index in card array for first number
+	  for (var k = 0; k < card_array.length; k++)
+	  {
+	    if (data[i] == card_array[k])
+	    {
+	      first_index = k;
+	    }
+	  }
+	  // second number to compare
+	  for (var j = i + 1; j < data.length; j++)
+	  {
+  	    // find index in card array for second number
+	    for (var k = 0; k < card_array.length; k++)
+	    {
+	      if (data[j] == card_array[k])
+	      {
+	        second_index = k;
+	      }
+	    }
+            if (parseInt(Math.abs(first_index - second_index)) >= 3)
+            {
+  	      $('#reestimate_text').remove();
+  	      $('#statistics_header_section').append('<p id = "reestimate_text" class = "error_text"> Estimates vary too much, reestimate </p>');
+	      reestimate_flag = true;
+            }
+	  }
+        }
+      if (reestimate_flag == false)
+      {
+	$('#reestimate_text').remove();
+      }
+    }
     }
   }); 
 
+};
+
+/* ---------- Show JIRA Story ---------- */
+function showJiraStoryForm()
+{
+  // JIRA story popup
+  $('<div id = "jira_story_form">'+ 
+  '<img src = "../images/close_window1.png" id="close_jira_window" onclick="this.parentNode.parentNode.removeChild(this.parentNode); window.location.href = window.location.href.slice(0, -1); return false; ">'+
+	'<p class = "header_text"> JIRA Story </p>'+
+	'<div id = "jira_story_form_section">'+
+          '<div id = "submit_jira_story_form_section">'+
+	    '<div id = jira_username_section>'+
+            '<input id = "jira_username_input" class = "jira_input input_text" type="text" name = "username" placeholder = "JIRA Username"> <br>'+
+	    '</div>'+
+	    '<div id = jira_password_section>'+
+            '<input id = "jira_password_input" class = "jira_input input_text" type="password" name = "password" placeholder = "JIRA Password"> <br>'+
+	    '</div>'+
+	    '<div id = jira_story_number_section>'+
+            '<input id = "jira_story_number_input" class = "jira_input input_text" type="text" name = "password" placeholder = "JIRA Story Number"> <br>'+
+	    '</div>'+
+            '<button id = "submit" class = "btn-1f" onclick = "submitJiraStory()"> Submit </button>'+
+          '</div>'+
+      '</div>'+
+'</div>').hide().appendTo('#user_section').fadeIn("200");
+  // Parent div wont use styles.css, dont know why. Using JQuery to apply css instead
+  $('#jira_story_form').css("position", "fixed");
+  $('#jira_story_form').css("z-index", "10");
+  $('#jira_story_form').css("left", "50%");
+  $('#jira_story_form').css("top", "50%");
+  $('#jira_story_form').css("transform", "translate(-50%, -50%)");
+  $('#jira_story_form').css("height", "auto");
+  $('#jira_story_form').css("width", "auto");
+  $('#jira_story_form').css("background-color", "#bfbfbf");
+  $('#jira_story_form').css("border-color", "#000000");
+  $('#jira_story_form').css("border-style", "double");
+  $('#jira_story_form').css("border-width", "12px");
+  $('#jira_story_form').css("box-shadow", "0px 0px 20px 0px black");
+
+};
+
+function submitJiraStory()
+{  
+  username = document.getElementById('jira_username_input').value;
+  password = document.getElementById('jira_password_input').value;
+  story_number = document.getElementById('jira_story_number_input').value;
+  url = window.location.href;
+  params = url.split('?');
+  params = url.split('=');
+ 
+  var last_id = params[1];
+  last_id = last_id.slice(0, -1);
+
+  var valid_form = jiraFormValidation(username, password, story_number);
+  if (valid_form)
+  {
+  $.ajax
+  ({
+    data: {'username': username, "password": password, "story_number": story_number, "last_id": last_id},
+    url: '/php/submitJiraStory.php',
+    method: 'GET',
+    success: function(msg)
+    {
+      console.log(msg);
+      showJiraStory();
+    }
+  });
+  }
+  else
+  {
+  }
+
+};
+
+function showJiraStory()
+{  
+  url = window.location.href;
+  params = url.split('?');
+  params = url.split('=');
+ 
+  var last_id = params[1];
+
+  $.ajax
+  ({
+    data: {'last_id': last_id},
+    url: '/php/showJiraStory.php',
+    method: 'POST',
+    success: function(msg)
+    {
+      if(msg === "SQL ERROR")
+      {
+	console.log("SQL ERROR");
+      }
+      else
+      {
+	console.log("NO SQL ERROR");
+        $('#jira_story_section').append(msg);
+      }
+    }
+  });
+};
+
+function clearJiraStory()
+{  
+  url = window.location.href;
+  params = url.split('?');
+  params = url.split('=');
+ 
+  var last_id = params[1];
+
+  $.ajax
+  ({
+    data: {'last_id': last_id},
+    url: '/php/clearJiraStory.php',
+    method: 'POST',
+    success: function(msg)
+    {
+      $('#show_jira_story_section').remove();
+    }
+  });
+};
+
+function jiraFormValidation(username, password, story_number)
+{
+  var valid = true;
+  if (!validateJiraUsername(username))
+  {
+    valid = false;
+  }
+  if (!validateJiraPassword(password))
+  {
+    valid = false;
+  }
+  if (!validateJiraStoryNumber(story_number))
+  {
+    valid = false;
+  }
+  return valid;
+};
+
+function validateJiraUsername(username)
+{
+  // clear existing errors
+  $('#jira_username_error').remove();
+
+  username_length = username.length;
+  if (username_length == 0)
+  {
+    $('#jira_username_section').append("<p id = 'jira_username_error' class = 'error_text'> JIRA Username can not be empty </p>");
+    return false;
+  }
+  return true;
+};
+
+function validateJiraPassword(password)
+{
+  // clear existing errors
+  $('#jira_password_error').remove();
+
+  password_length = password.length;
+  if (password_length == 0)
+  {
+    $('#jira_password_section').append("<p id = 'jira_password_error' class = 'error_text'> JIRA Password can not be empty </p>");
+    return false;
+  }
+  return true;
+};
+
+function validateJiraStoryNumber(story_number)
+{
+  // clear existing errors
+  $('#jira_story_number_error').remove();
+
+  story_number_length = story_number.length;
+  if (story_number_length == 0)
+  {
+    $('#jira_story_number_section').append("<p id = 'jira_story_number_error' class = 'error_text'> JIRA Story Number can not be empty </p>");
+    return false;
+  }
+  return true; 
 };
 
 /* ---------- Sign Up ---------- */
@@ -623,7 +947,7 @@ function logout()
     {
 	deleteCookie("username");
 	deleteCookie("password");
-	location.reload();
+	window.location = window.location.href.split("#")[0];
     }
   });
 };
@@ -692,7 +1016,6 @@ function submit()
   
   parent = document.getElementById("user_section");
 
-  // TODO: change alert to a nicer looking message
   // clear existing errors
   $('#submit_card_error_text').remove();
   $('#submit_username_error_text').remove();
@@ -731,6 +1054,7 @@ function submit()
     method: 'POST', // or GET
     success: function(msg)
     {
+	update_card_color(given_name+"_card");
     }
   });
 };
@@ -758,8 +1082,23 @@ function submit_logged_in(given_name)
     method: 'POST', // or GET
     success: function(msg)
     {
+	update_card_color(given_name+"_card");
     }
   });
+};
+
+function update_card_color(card)
+{
+	if(showResultsIntervalBool === true && $("#"+card).length)
+	{
+		//clearInterval(showResultsInterval);
+		//$("#"+card).fadeOut(200).fadeIn(200, function() {showResultsInterval = setInterval(showResultsLoop, 300);});	
+	}
+	if(showPlayersIntervalBool === true && $("#"+card).length)
+	{
+		//clearInterval(showPlayersInterval);
+		//$("#"+card).fadeOut(200).fadeIn(200, function() {showPlayersInterval = setInterval(showPlayersLoop, 300);});
+	}
 };
 
 function selectCard(card)

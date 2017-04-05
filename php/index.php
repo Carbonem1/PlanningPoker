@@ -7,24 +7,25 @@
   <!-- CSS -->
   <link rel = "stylesheet" href = "../css/styles.css">
   <!-- JavaScript -->
-  <script src="../js/javaScript.js"></script>
-  <!-- Bootstrap -->
   <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <script src="../js/javaScript.js"></script>
   <script src="../js/jquery.min.js"></script>
   <script src="../js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="../css/font-awesome.min.css">
   <link rel="stylesheet" href="../css/footer-distributed-with-contact-form.css">
   <!-- jQuery library -->
   <script src="../js/ajaxjquery.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
   <!-- Plotly.js -->
   <script src="../js/plotly-latest.min.js"></script>
-  <link rel = "stylesheet" href = "../css/component.css">
+  <!-- <link rel = "stylesheet" href = "../css/component.css"> -->
 </head>
 
   <body id = "body" onload = "cookieLogin(); showPlayers();">
     <?php
     include('header.php');
     session_start();
+
     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)
     {
     echo '
@@ -74,13 +75,16 @@
           <p class = "card_text"> 89 </p>
         </span>
         <br>
-        <button id = "submit" class = "button input_text btn btn-1 btn-1f" onclick = "submit_logged_in(\''.$_SESSION["username"].'\')"> Submit </button>
+        <button id = "submit" class = "btn-1f" onclick = "submit_logged_in(\''.$_SESSION["username"].'\')"> Submit </button>
+      </div>
+
+      <div id = "jira_story_section">
       </div>
 
       <div id = "result_section">
-	<img id = "clear_results_button" title = "Click to clear results" src = "../images/clear_results.png" onclick = "clearResults()">
-	<img id = "copy_room_link_button" title = "Click to copy room link" src = "../images/copy_link.png" onclick = "copyRoomLink()">
-        <img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.png"> </img>
+	<img id = "clear_results_button" class = "clear_results_button" title = "Click to clear results" src = "../images/clear_results1.png" onclick = "clearResults()">
+	<img id = "copy_room_link_button" class = "copy_room_link_button" title = "Click to copy room link" src = "../images/copy_link1.png" onclick = "copyRoomLink()">
+        <img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon1.png"> </img>
 	<div id = "results_header_section">
 	<p id = "results_header" class = "header_text"> Results </p>
 	</div>
@@ -149,13 +153,16 @@
           <p class = "card_text"> 89 </p>
         </span>
         <br>
-        <button id = "submit" class = "btn btn-1 btn-1f" onclick = "submit()"> Submit </button>
+        <button id = "submit" class = "btn-1f" onclick = "submit()"> Submit </button>
+      </div>
+
+      <div id = "jira_story_section">
       </div>
 
       <div id = "result_section">
-	<img id = "clear_results_button" title = "Click to clear results" src = "../images/clear_results.png" onclick = "clearResults()">
-	<img id = "copy_room_link_button" title = "Click to copy room link" src = "../images/copy_link.png" onclick = "copyRoomLink()">
-        <img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon.png"> </img>
+	<img id = "clear_results_button" class = "clear_results_button" title = "Click to clear results" src = "../images/clear_results1.png" onclick = "clearResults()">
+	<img id = "copy_room_link_button" class = "copy_room_link_button" title = "Click to copy room link" src = "../images/copy_link1.png" onclick = "copyRoomLink()">
+        <img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon1.png"> </img>
 	<div id = "results_header_section">
 	<p id = "results_header" class = "header_text"> Results </p>
 	</div>

@@ -20,14 +20,18 @@
 	    if ($URI == "/index.php")
 	    {
 	      echo '
-              <li><a href="/index.php" class = "active">Home</a></li>
-              <li><a href="#">Options</a></li>';
+              <li class = "active"><a href="/index.php" class = "active">Home</a></li>
+              <li class = "dropdown"><a href="#">Options</a></li>';
 	    }
 	    else
             {
 	      echo '
               <li><a href="/index.php">Home</a></li>
-              <li><a href="#">Options</a></li>';
+	      <li class = "dropdown"> 
+  	        <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown"> Options </a>
+	          <ul class = "dropdown-menu">
+		    <li> <a href = "#" class = "dropdown-item" onclick = "showJiraStoryForm()"> JIRA Story </a> </li> </ul> </li>';
+
 	    }
 	  echo ' 
           </ul>
@@ -63,9 +67,13 @@
             if ($URI == "/index.php")
 	    {
   	    echo '
-	    <li class="active"><a href="/index.php">Home</a></li>
-            <li><a href="#">Options</a></li>
-          </ul>
+              <li class = "active"><a href="/index.php">Home</a></li>
+	      <li class = "dropdown"> 
+  	        <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown"> Options </a>
+	          <ul class = "dropdown-menu">
+		    <li> <a href = "#" class = "dropdown-item" onclick = "showJiraStoryForm()"> JIRA Story </a> </li> </ul> </li>
+
+      </ul>
           <ul class="nav navbar-nav navbar-right cl-effect-1">
             <li><a href="/signup.php"><span></span> Sign Up </a></li>
             <li><a href="/login.php"><span></span> Login </a></li>
@@ -96,9 +104,12 @@
             else
 	    {
   	    echo '
-	    <li><a href="/index.php">Home</a></li>
-            <li><a href="#">Options</a></li>
-          </ul>
+              <li><a href="/index.php">Home</a></li>
+	      <li class = "dropdown"> 
+  	        <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown"> Options </a>
+	          <ul class = "dropdown-menu">
+		    <li> <a href = "#" class = "dropdown-item" onclick = "showJiraStoryForm()"> JIRA Story </a> </li> </ul> </li>
+	  </ul>
           <ul class="nav navbar-nav navbar-right cl-effect-1">
             <li><a href="/signup.php"><span></span> Sign Up </a></li>
             <li><a href="/login.php"><span></span> Login </a></li>

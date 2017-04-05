@@ -19,7 +19,6 @@
     <script src="js/ajaxjquery.min.js"></script>
     <!-- Plotly.js -->
     <script src="js/plotly-latest.min.js"></script>
-    <link rel = "stylesheet" type = "text/css" href = "css/component.css" />
   </head>
 
   <body id = "body">
@@ -42,7 +41,7 @@
   	    <div id = signup_confirm_password_section>
             <input id = "confirm_password_input" class = "signup_input input_text" type="password" name = "confirm_password" placeholder = "Confirm Password"> <br>
 	    </div>
-            <button id = "submit" class = "input_text btn btn-1 btn-1f" onclick = "signUp()"> Sign Up </button>
+            <button id = "submit" class = "btn-1f" onclick = "signUp()"> Sign Up </button>
           </div>
       </div>
     </center>

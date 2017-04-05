@@ -34,7 +34,7 @@ try {
         	$card = $row['card'];
 		echo '<span class = result_entry>';
 		echo 	'<p class = "username_text"> '.$username.' </p>';
-		echo 	'<span class = "result_card" name = "'.$card.'"  tabindex="1">';
+		echo 	'<span id = "'.$username.'_card" class = "result_card" name = "'.$card.'"  tabindex="1">';
           	echo 		'<p class = "text"> ?  </p>';
         	echo 	'</span>';
 		echo '</span>';

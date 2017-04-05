@@ -18,7 +18,6 @@
     <script src="js/ajaxjquery.min.js"></script>
     <!-- Plotly.js -->
     <script src="js/plotly-latest.min.js"></script>
-    <link rel = "stylesheet" type = "text/css" href = "css/component.css" />
   </head>
 
   <body id = "body">
@@ -35,8 +34,8 @@
 	    <div id = "login_password_section">
             <input id = "login_password_input" class = "login_input input_text" type="password" name = "password" placeholder = "Password"> <br>
 	    </div>
-            <button id = "submit" class = "btn btn-1 btn-1f" onclick = "login()"> Log In </button>
-	    <!-- <button id = "submit" class = "btn btn-1 btn-1f" onclick = "adLogin()"> Log In With AD </button> -->
+            <button id = "submit" class = "btn-1f" onclick = "login()"> Log In </button>
+	    <!-- <button id = "submit" class = "btn-1f" onclick = "adLogin()"> Log In With AD </button> -->
 
           </div>
       </div>

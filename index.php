@@ -17,7 +17,6 @@
     <script src="js/ajaxjquery.min.js"></script>
     <!-- Plotly.js -->
     <script src="js/plotly-latest.min.js"></script>
-    <link rel = "stylesheet" type = "text/css" href = "css/component.css" />
   </head>
 
   <body id = "body" onload = "cookieLogin();">
@@ -29,13 +28,13 @@
     <p id = "title"> Planning Poker </p>
     
     <div id = "user_section" class = "section">
-      <button onclick = "createRoom()" id = "submit" class = "button input_text btn btn-1 btn-1f"> Create Room </button>
+      <button onclick = "createRoom()" id = "submit" class = "btn-1f"> Create Room </button>
       <div id = "or_text_section">
         <p id = "or_text"> <span> OR </span> </p>
       </div>
       <input type = "text" id = "join_room_input" class = "input_text" placeholder = "Room ID" onkeydown = "if (event.keyCode == 13) document.getElementById('join_room_button').click()"> </input>
       <br>
-      <button onclick = "joinRoom()" id = "join_room_button" class = "button input_text btn btn-1 btn-1f"> Join Room </button>	
+      <button onclick = "joinRoom()" id = "join_room_button" class = "btn-1f"> Join Room </button>	
     </div>
   </center>
 

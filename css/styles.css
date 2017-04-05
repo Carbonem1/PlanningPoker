@@ -66,6 +66,26 @@
   width: 295px;
 }
 
+.jira_input
+{
+ width: 50%;
+ margin: 10px;
+ margin-right: 0px;
+ padding: 5px;
+}
+
+#jira_username_input
+{
+}
+
+#jira_password_input
+{
+}
+
+#jira_story_number__input
+{
+}
+
 #or_text
 {
   color: #000000;
@@ -136,6 +156,21 @@
  padding: 5px;
 }
 
+#show_jira_story_section
+{
+  z-index: 10;
+  position: fixed;
+  min-height: 100px;
+  width: 70%;
+  margin: 50px;
+  padding-bottom: 10px;
+  background-color: #bfbfbf;
+  opacity: 1;
+  border-radius: 5px;
+  border-style: double;
+  border-color: #000000;
+  border-width: 12px;
+}
 
 #user_section
 {
@@ -191,7 +226,8 @@
 
 #result_section
 {
-  min-height: 300px;
+  z-index: 5;
+  min-height: 345px;
   width: 70%;
   margin: 50px;
   padding-bottom: 10px;
@@ -201,6 +237,7 @@
   border-style: double;
   border-color: #000000;
   border-width: 12px;
+  position: relative;
 }
 
 .result_entry
@@ -216,16 +253,34 @@
 {
   float: left;
   margin: 10px;
-  margin-top: 5px;
   cursor: pointer;
+  border-radius: 100px;
+}
+
+.clear_results_button
+{
+  -webkit-filter: invert(0);
+  filter: invert(0);
+  -webkit-transition: filter 1s ease, -webkit-filter 1s ease;
+  -moz-transition: filter 1s ease, -webkit-filter 1s ease;
+  -o-transition: filter 1s ease, -webkit-filter 1s ease;
+  transition: filter 1s ease, -webkit-filter 1s ease;
+}
+
+#clear_jira_story_button
+{
+  float: left;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 100px;
 }
 
 #show_result_button
 {
   float: right;
   margin: 10px;
-  margin-top: 0px;
   cursor: pointer;
+  border-radius: 100px;
 }
 
 
@@ -233,8 +288,8 @@
 {
   float: right;
   margin: 10px;
-  margin-top: 0px;
   cursor: pointer;
+  border-radius: 100px;
 }
 
 #copy_room_link_button
@@ -242,8 +297,30 @@
   float: right;
   margin: 10px;
   cursor: pointer;
+  border-radius: 100px;
 }
 
+.copy_room_link_button
+{
+  -webkit-filter: invert(0);
+  filter: invert(0);
+  -webkit-transition: filter 1s ease, -webkit-filter 1s ease;
+  -moz-transition: filter 1s ease, -webkit-filter 1s ease;
+  -o-transition: filter 1s ease, -webkit-filter 1s ease;
+  transition: filter 1s ease, -webkit-filter 1s ease;
+}
+
+.button_transition
+{  
+  -webkit-filter: invert(1);
+  filter: invert(1);
+}
+
+#close_jira_window
+{
+  float: right;
+  cursor: pointer;
+}
 
 #statistics_section
 {
@@ -301,6 +378,31 @@
   color: white;
   font-size: 25px;
   font-family: Gidole, Arial;
+}
+
+.jira_text
+{
+  color: #000000;
+  font-size: 40px;
+  font-family: Gidole, Arial;
+  float: center;
+  margin-left: 10px;
+}
+
+.timer_text
+{
+  width: 45px;
+  height: 45px;
+  font-family: Gidole, Arial;
+  font-size: 10px;
+  color: #ffffff;
+  float: left;
+  background-color: #262626;
+  border-radius: 100px;
+  margin: 10px;
+  padding: 15px;
+  position: absolute;
+  bottom: 0;
 }
 
 .footer_text
@@ -440,4 +542,40 @@
 	-moz-transform: translateX(0px);
 	transform: translateX(0px);
 }
+
+/* General button style (reset) */
+/* Button 1f */
+.btn-1f {
+	overflow: hidden;
+	font-family: Arial;
+	color: #ffffff;
+	border-color: #bfbfbf;
+	background-color: #262626;
+	height: 75px;
+	width: 300px;
+	cursor: pointer;
+	padding: 25px 80px;
+	display: inline-block;
+	margin: 15px 30px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 700;
+}
+
+.btn-1f:hover
+{
+  -webkit-animation: fadecolor .8s;
+  -moz-animation: fadecolor .8s;
+  -ms-animation: fadecolor .8s;
+  -o-animation: fadecolor .8s;
+  animation: fadecolor .8s;
+  color: #ffffff;
+}
+
+.btn-1f:focus
+{
+	color: #ffffff;
+	outline: 0;
+}
+
 
