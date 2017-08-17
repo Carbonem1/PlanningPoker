@@ -1,4 +1,4 @@
-    <!-- Bootstrap footer
+    <!-- Bootstrap footer (currently not being used)
     <footer class="footer-distributed footer">
       <div class="footer-left">
         <p class = "footer_text">Planning Poker</p>

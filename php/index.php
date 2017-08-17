@@ -18,14 +18,14 @@
   <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
   <!-- Plotly.js -->
   <script src="../js/plotly-latest.min.js"></script>
-  <!-- <link rel = "stylesheet" href = "../css/component.css"> -->
 </head>
 
+  <!-- after joinging a lobby, attempt to login user with cookies, also show players who have already submitted votes-->
   <body id = "body" onload = "cookieLogin(); showPlayers();">
     <?php
     include('header.php');
     session_start();
-
+    /* display the logged in layout for the user if they are logged in */
     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)
     {
     echo '
@@ -104,6 +104,8 @@
     $conn = null;
 
     }
+
+    /* display the default layout for the user */
     else
     {
     echo '

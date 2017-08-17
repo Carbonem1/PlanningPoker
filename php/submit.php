@@ -1,4 +1,6 @@
 <?php
+/* submit is used when the player wants to submit their card choice */
+
 $servername = "localhost";
 $db_username = "root";
 $db_password = "PlanningPoker2016!";

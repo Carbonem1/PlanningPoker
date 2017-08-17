@@ -1,4 +1,5 @@
 <?php
+/* showResults is used after everyone's votes are in to display card values */
 
 $roomID = $_POST['last_id'];
 $servername = "localhost";
@@ -25,6 +26,7 @@ function endChildren() {
 } 
 
 try {
+  /* grab all players and their submitted cards from the database and return to be displayed */
 	$room_instance_table = "RoomInstance".$roomID;
     	$conn = new PDO("mysql:host=$servername;dbname=$database", $db_username, $db_password);
     	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

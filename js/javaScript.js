@@ -2,8 +2,10 @@ var selected_card = "";
 var estimates = new Array();
 var mean;
 var showPlayersInterval;
+var showPlayersIntervalDuration = 300;
 var showPlayersIntervalBool = false;
 var showResultsInterval;
+var showResultsIntervalDuration = 2000;
 var showResultsIntervalBool = false;
 var same_result_bool;
 var dolphin_flag = true;
@@ -65,7 +67,7 @@ $('#show_result_button').replaceWith('<img title = "Click to hide results" id = 
 if(!showResultsIntervalBool)
 {
   showClearResultsTimerInterval = setInterval(showClearResultsTimer, 1000);
-  showResultsInterval = setInterval(showResultsLoop, 2000);
+  showResultsInterval = setInterval(showResultsLoop, showResultsIntervalDuration);
 }
 };
 
@@ -176,7 +178,7 @@ dolphin_flag = true;
 	Plotly.purge(hist_plot);
 if(!showPlayersIntervalBool)
 {
-showPlayersInterval = setInterval(showPlayersLoop, 300);
+showPlayersInterval = setInterval(showPlayersLoop, showPlayersIntervalDuration);
 }
 };
 
@@ -232,13 +234,12 @@ function clearResults()
     method: 'POST', // or GET
     success: function(msg)
     {
-	console.log(msg);
         $(".clear_results_button").toggleClass("button_transition");
         setTimeout(changeClearResultsButtonColor, 200);
 
-	if(msg == "success")
+	if(msg === "success")
 	{
-
+          console.log("CLEAR RESULTS SUCCESS");
 	  $('#reestimate_text').remove();
 
           $('#clear_results_timer_text').remove();
@@ -251,6 +252,7 @@ function clearResults()
 	}
 	else
 	{
+          console.log("CLEAR RESULTS FAILED");
 	}
     }
   }); 
@@ -1055,6 +1057,7 @@ function submit()
     success: function(msg)
     {
 	update_card_color(given_name+"_card");
+        console.log("SUBMIT SUCCESSFUL");
     }
   });
 };

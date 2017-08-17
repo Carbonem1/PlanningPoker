@@ -15,8 +15,6 @@ try {
 
     	// execute the query
     	$stmt->execute();
-
-    	// echo a message to say the UPDATE succeeded
     }
 
 catch(PDOException $e) {

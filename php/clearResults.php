@@ -18,7 +18,7 @@ try {
 
     	// execute the query
     	$stmt->execute();
-	echo "success";
+        echo "success";
 
 }
 catch(PDOException $e) {
