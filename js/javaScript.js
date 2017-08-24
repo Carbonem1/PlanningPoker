@@ -2,14 +2,17 @@ var selected_card = "";
 var estimates = new Array();
 var mean;
 var showPlayersInterval;
-var showPlayersIntervalDuration = 300;
+var showPlayersIntervalDuration = 1000;
 var showPlayersIntervalBool = false;
+var showPlayersIntervalCount = 0;
 var showResultsInterval;
 var showResultsIntervalDuration = 2000;
 var showResultsIntervalBool = false;
+var showResultsIntervalCount = 0;
 var same_result_bool;
 var dolphin_flag = true;
 var clear_timer = 60
+
 
 function copyRoomLink()
 {  
@@ -58,9 +61,10 @@ function showResults()
 clearInterval(showPlayersInterval);
 showPlayersIntervalBool = false;
 
-$('html, body').animate({
+/*$('html, body').animate({
         scrollTop: $("#result_section").offset().top-100
     }, 2000);
+*/
 
 $('#show_result_button').replaceWith('<img title = "Click to hide results" id = "hide_result_button" onclick ="hideResultsButton()" src = "../images/hide_eye_icon1.png"> </img>');
 
@@ -87,7 +91,9 @@ function showClearResultsTimer()
 
 function showResultsLoop()
 {
-  console.log("SHOW RESULTS LOOP START");
+  showResultsIntervalCount += 1;  
+  console.log("SHOW RESULTS LOOP [" + showResultsIntervalCount + "] START");
+
   showResultsIntervalBool = true;
 
   url = window.location.href;
@@ -102,6 +108,8 @@ function showResultsLoop()
     method: 'POST', // or GET
     success: function(msg)
     { 
+      console.log("SHOW RESULTS LOOP [" + showResultsIntervalCount + "] SUCCESS");
+
       showResultsBool = (msg.slice(-1));
       msg = msg.slice(0, -1); 
       if (showResultsBool == "1")
@@ -123,6 +131,10 @@ function showResultsLoop()
       {
 	return;
       }
+    },
+    error: function(xhr, status, error)
+    {
+      console.log("SHOW RESULTS LOOP [" + showResultsIntervalCount + "] FAILED\n\t" + JSON.parse(xhr.responseText));
     }
   });
 };
@@ -165,26 +177,29 @@ function hideResultsButton()
 
 function showPlayers()
 {
-clearInterval(showResultsInterval);
-showResultsIntervalBool = false;
+  clearInterval(showResultsInterval);
+  showResultsIntervalBool = false;
 
-$('#hide_result_button').replaceWith('<img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon1.png"> </img>');
-// reset dolphin flag, show dolphin if we get a new consensus
-dolphin_flag = true;
-// clear Statistics section
-  	$('#mean').remove();
-  	$('#reestimate_text').remove();
-	Plotly.purge(box_plot);
-	Plotly.purge(hist_plot);
-if(!showPlayersIntervalBool)
-{
-showPlayersInterval = setInterval(showPlayersLoop, showPlayersIntervalDuration);
-}
+  $('#hide_result_button').replaceWith('<img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon1.png"> </img>');
+  // reset dolphin flag, show dolphin if we get a new consensus
+  dolphin_flag = true;
+  // clear Statistics section
+  $('#mean').remove();
+  $('#reestimate_text').remove();
+  Plotly.purge(box_plot);
+  Plotly.purge(hist_plot);
+
+  if(!showPlayersIntervalBool)
+  {
+    showPlayersInterval = setInterval(showPlayersLoop, showPlayersIntervalDuration);
+  }
 };
 
 function showPlayersLoop()
 {
-  console.log("SHOW PLAYERS LOOP START");
+  showPlayersIntervalCount += 1;  
+  console.log("SHOW PLAYERS LOOP [" + showPlayersIntervalCount + "] START");
+
   showPlayersIntervalBool = true;  
 
   url = window.location.href;
@@ -199,6 +214,8 @@ function showPlayersLoop()
     method: 'POST', // or GET
     success: function(msg)
     {
+      console.log("SHOW PLAYERS LOOP [" + showPlayersIntervalCount + "] SUCCESS");
+
       showResultsBool = (msg.slice(-1));
       msg = msg.slice(0, -1); 
       if (showResultsBool == "0")
@@ -214,6 +231,10 @@ function showPlayersLoop()
       {
 	return;
       }
+    },
+    error: function(xhr, status, error)
+    {
+      console.log("SHOW PLAYERS LOOP [" + showPlayersIntervalCount + "] FAILED\n\t" + JSON.parse(xhr.responseText));
     }
   });
 };
@@ -234,26 +255,20 @@ function clearResults()
     method: 'POST', // or GET
     success: function(msg)
     {
+        console.log("CLEAR RESULTS SUCCESS");
+
         $(".clear_results_button").toggleClass("button_transition");
         setTimeout(changeClearResultsButtonColor, 200);
+        
+	$('#reestimate_text').remove();
 
-	if(msg === "success")
-	{
-          console.log("CLEAR RESULTS SUCCESS");
-	  $('#reestimate_text').remove();
+        $('#clear_results_timer_text').remove();
+        clearInterval(showClearResultsTimerInterval);
+        clear_timer = 60;
 
-          $('#clear_results_timer_text').remove();
-          clearInterval(showClearResultsTimerInterval);
-          clear_timer = 60;
-
-	  clearInterval(showResultsInterval);
-	  clearInterval(showPlayersInterval);
-	  showPlayers();
-	}
-	else
-	{
-          console.log("CLEAR RESULTS FAILED");
-	}
+	clearInterval(showResultsInterval);
+	clearInterval(showPlayersInterval);
+	showPlayers();
     }
   }); 
 };
@@ -1010,6 +1025,8 @@ function validateRoomID(roomID)
 
 function submit()
 {
+  console.log("ATTEMPTING SUBMIT");
+
   name_input = document.getElementById("name_input");
   if (name_input != null)
   {
@@ -1057,13 +1074,18 @@ function submit()
     success: function(msg)
     {
 	update_card_color(given_name+"_card");
-        console.log("SUBMIT SUCCESSFUL");
+        console.log("SUBMIT SUCCESS");
+    },
+    error: function(xhr, status, error)
+    {
+      console.log("SUBMIT FAILED\n\t" + JSON.parse(xhr.responseText));
     }
   });
 };
 
 function submit_logged_in(given_name)
 {
+  console.log("ATTEMPTING SUBMIT");
   
   $('#submit_card_error_text').remove();
   // check for a card
@@ -1086,10 +1108,16 @@ function submit_logged_in(given_name)
     success: function(msg)
     {
 	update_card_color(given_name+"_card");
+        console.log("SUBMIT SUCCESS");
+    },
+    error: function(xhr, status, error)
+    {
+      console.log("SUBMIT FAILED\n\t" + JSON.parse(xhr.responseText));
     }
   });
 };
 
+// Used to show feedback to user when they submit a new card, currently disabled due to inconsistency
 function update_card_color(card)
 {
 	if(showResultsIntervalBool === true && $("#"+card).length)
