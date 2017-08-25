@@ -1,14 +1,14 @@
 var selected_card = "";
 var estimates = new Array();
 var mean;
-var showPlayersInterval;
-var showPlayersIntervalDuration = 1000;
-var showPlayersIntervalBool = false;
-var showPlayersIntervalCount = 0;
-var showResultsInterval;
-var showResultsIntervalDuration = 2000;
-var showResultsIntervalBool = false;
-var showResultsIntervalCount = 0;
+var showPlayersTimeout;
+var showPlayersTimeoutDuration = 500;
+var showPlayersTimeoutBool = false;
+var showPlayersTimeoutCount = 0;
+var showResultsTimeout;
+var showResultsTimeoutDuration = 1000;
+var showResultsTimeoutBool = false;
+var showResultsTimeoutCount = 0;
 var same_result_bool;
 var dolphin_flag = true;
 var clear_timer = 60
@@ -58,8 +58,8 @@ function changeCopyRoomLinkButtonColor()
 
 function showResults()
 {
-clearInterval(showPlayersInterval);
-showPlayersIntervalBool = false;
+clearTimeout(showPlayersTimeout);
+showPlayersTimeoutBool = false;
 
 /*$('html, body').animate({
         scrollTop: $("#result_section").offset().top-100
@@ -68,10 +68,10 @@ showPlayersIntervalBool = false;
 
 $('#show_result_button').replaceWith('<img title = "Click to hide results" id = "hide_result_button" onclick ="hideResultsButton()" src = "../images/hide_eye_icon1.png"> </img>');
 
-if(!showResultsIntervalBool)
+if(!showResultsTimeoutBool)
 {
   showClearResultsTimerInterval = setInterval(showClearResultsTimer, 1000);
-  showResultsInterval = setInterval(showResultsLoop, showResultsIntervalDuration);
+  showResultsTimeout = setTimeout(showResultsLoop, showResultsTimeoutDuration);
 }
 };
 
@@ -91,10 +91,10 @@ function showClearResultsTimer()
 
 function showResultsLoop()
 {
-  showResultsIntervalCount += 1;  
-  console.log("SHOW RESULTS LOOP [" + showResultsIntervalCount + "] START");
+  showResultsTimeoutCount += 1;  
+  console.log("SHOW RESULTS LOOP [" + showResultsTimeoutCount + "] START");
 
-  showResultsIntervalBool = true;
+  showResultsTimeoutBool = true;
 
   url = window.location.href;
   params = url.split('?');
@@ -108,7 +108,7 @@ function showResultsLoop()
     method: 'POST', // or GET
     success: function(msg)
     { 
-      console.log("SHOW RESULTS LOOP [" + showResultsIntervalCount + "] SUCCESS");
+      console.log("SHOW RESULTS LOOP [" + showResultsTimeoutCount + "] SUCCESS");
 
       showResultsBool = (msg.slice(-1));
       msg = msg.slice(0, -1); 
@@ -134,9 +134,11 @@ function showResultsLoop()
     },
     error: function(xhr, status, error)
     {
-      console.log("SHOW RESULTS LOOP [" + showResultsIntervalCount + "] FAILED\n\t" + JSON.parse(xhr.responseText));
+      console.log("SHOW RESULTS LOOP [" + showResultsTimeoutCount + "] FAILED\n\t" + JSON.parse(xhr.responseText));
     }
   });
+
+  showResultsTimeout = setTimeout(showResultsLoop, showResultsTimeoutDuration);
 };
 
 function showResultsButton()
@@ -177,8 +179,8 @@ function hideResultsButton()
 
 function showPlayers()
 {
-  clearInterval(showResultsInterval);
-  showResultsIntervalBool = false;
+  clearTimeout(showResultsTimeout);
+  showResultsTimeoutBool = false;
 
   $('#hide_result_button').replaceWith('<img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon1.png"> </img>');
   // reset dolphin flag, show dolphin if we get a new consensus
@@ -189,18 +191,18 @@ function showPlayers()
   Plotly.purge(box_plot);
   Plotly.purge(hist_plot);
 
-  if(!showPlayersIntervalBool)
+  if(!showPlayersTimeoutBool)
   {
-    showPlayersInterval = setInterval(showPlayersLoop, showPlayersIntervalDuration);
+    showPlayersTimeout = setTimeout(showPlayersLoop, showPlayersTimeoutDuration);
   }
 };
 
 function showPlayersLoop()
 {
-  showPlayersIntervalCount += 1;  
-  console.log("SHOW PLAYERS LOOP [" + showPlayersIntervalCount + "] START");
+  showPlayersTimeoutCount += 1;  
+  console.log("SHOW PLAYERS LOOP [" + showPlayersTimeoutCount + "] START");
 
-  showPlayersIntervalBool = true;  
+  showPlayersTimeoutBool = true;  
 
   url = window.location.href;
   params = url.split('?');
@@ -214,7 +216,7 @@ function showPlayersLoop()
     method: 'POST', // or GET
     success: function(msg)
     {
-      console.log("SHOW PLAYERS LOOP [" + showPlayersIntervalCount + "] SUCCESS");
+      console.log("SHOW PLAYERS LOOP [" + showPlayersTimeoutCount + "] SUCCESS");
 
       showResultsBool = (msg.slice(-1));
       msg = msg.slice(0, -1); 
@@ -234,9 +236,10 @@ function showPlayersLoop()
     },
     error: function(xhr, status, error)
     {
-      console.log("SHOW PLAYERS LOOP [" + showPlayersIntervalCount + "] FAILED\n\t" + JSON.parse(xhr.responseText));
+      console.log("SHOW PLAYERS LOOP [" + showPlayersTimeoutCount + "] FAILED\n\t" + JSON.parse(xhr.responseText));
     }
   });
+  showPlayersTimeout = setTimeout(showPlayersLoop, showPlayersTimeoutDuration);
 };
 
 
@@ -257,8 +260,9 @@ function clearResults()
     {
         console.log("CLEAR RESULTS SUCCESS");
 
+        // make button pulse when clearning results
         $(".clear_results_button").toggleClass("button_transition");
-        setTimeout(changeClearResultsButtonColor, 200);
+        setTimeout(changeClearResultsButtonColor, 100);
         
 	$('#reestimate_text').remove();
 
@@ -266,9 +270,27 @@ function clearResults()
         clearInterval(showClearResultsTimerInterval);
         clear_timer = 60;
 
-	clearInterval(showResultsInterval);
-	clearInterval(showPlayersInterval);
-	showPlayers();
+	clearTimeout(showResultsTimeout);
+	clearTimeout(showPlayersTimeout);
+
+
+	showResultsTimeoutBool = false;
+
+	$('#hide_result_button').replaceWith('<img title = "Click to show results" id = "show_result_button" onclick ="showResultsButton()" src = "../images/show_eye_icon1.png"> </img>');
+	// reset dolphin flag, show dolphin if we get a new consensus
+	dolphin_flag = true;
+	// clear Statistics section
+	$('#mean').remove();
+	$('#reestimate_text').remove();
+	Plotly.purge(box_plot);
+	Plotly.purge(hist_plot);
+
+	showPlayersTimeout = setTimeout(showPlayersLoop, showPlayersTimeoutDuration);
+
+    },
+    error: function(xhr, status, error)
+    {
+      console.log("CLEAR RESULTS [" + showResultsTimeoutCount + "] FAILED\n\t" + JSON.parse(xhr.responseText));
     }
   }); 
 };
@@ -1120,15 +1142,15 @@ function submit_logged_in(given_name)
 // Used to show feedback to user when they submit a new card, currently disabled due to inconsistency
 function update_card_color(card)
 {
-	if(showResultsIntervalBool === true && $("#"+card).length)
+	if(showResultsTimeoutBool === true && $("#"+card).length)
 	{
-		//clearInterval(showResultsInterval);
-		//$("#"+card).fadeOut(200).fadeIn(200, function() {showResultsInterval = setInterval(showResultsLoop, 300);});	
+		//clearTimeout(showResultsTimeout);
+		//$("#"+card).fadeOut(200).fadeIn(200, function() {showResultsTimeout = setTimeout(showResultsLoop, 300);});	
 	}
-	if(showPlayersIntervalBool === true && $("#"+card).length)
+	if(showPlayersTimeoutBool === true && $("#"+card).length)
 	{
-		//clearInterval(showPlayersInterval);
-		//$("#"+card).fadeOut(200).fadeIn(200, function() {showPlayersInterval = setInterval(showPlayersLoop, 300);});
+		//clearTimeout(showPlayersTimeout);
+		//$("#"+card).fadeOut(200).fadeIn(200, function() {showPlayersTimeout = setTimeout(showPlayersLoop, 300);});
 	}
 };
 
